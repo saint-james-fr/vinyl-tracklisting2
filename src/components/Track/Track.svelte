@@ -21,6 +21,7 @@
   onMount(() => {
     // grab track title from store
     side = $vinylStore.sides[sideIndex];
+    console.log(side);
     track = side.tracks[index];
     title = track.title;
     minute = secondsToMinute(track.length)[0];
@@ -58,7 +59,17 @@
         max="59"
         data-form-type="other"
         bind:value={minute}
-        on:input={() => {
+        on:keydown={(e) => {
+          if (e.key === "-") {
+            e.preventDefault();
+            minute = 0;
+          }
+        }}
+        on:input={(e) => {
+          if (e.currentTarget.value.length > 2) return (minute = 0);
+          if (second === undefined) second = 0;
+          if (minute > 59) minute = 59;
+          if (minute < 0) minute = 0;
           $vinylStore.sides[sideIndex].tracks[index].length =
             minute * 60 + second;
         }}
@@ -74,7 +85,17 @@
         max="59"
         data-form-type="other"
         bind:value={second}
-        on:input={() => {
+        on:keydown={(e) => {
+          if (e.key === "-") {
+            e.preventDefault();
+            second = 0;
+          }
+        }}
+        on:input={(e) => {
+          if (e.currentTarget.value.length > 2) return (second = 0);
+          if (second === undefined) second = 0;
+          if (second > 59) second = 59;
+          if (second < 0) second = 0;
           $vinylStore.sides[sideIndex].tracks[index].length =
             minute * 60 + second;
         }}

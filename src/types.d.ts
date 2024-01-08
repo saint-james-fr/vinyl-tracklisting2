@@ -2,7 +2,7 @@ interface TrackType {
   id: number;
   prefix: string;
   title: string;
-  length: number;
+  length: number | undefined;
 }
 
 interface SideType {

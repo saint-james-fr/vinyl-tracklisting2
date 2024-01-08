@@ -23,7 +23,7 @@ const preventEmptySide = (sideElement: HTMLElement): void => {
     vinylStore.update((storeValue) => {
       storeValue.sides[sideIndex].tracks.push({
         title: "",
-        length: "0",
+        length: undefined,
         prefix: prefixPossible[sideIndex],
         id: emptyTitleId++,
       });

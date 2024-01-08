@@ -7,7 +7,7 @@ export function createDefaultTrack(): TrackType {
     id: trackId,
     prefix: "",
     title: "",
-    length: 0,
+    length: undefined,
   };
 }
 export function createDefaultSide(): SideType {
