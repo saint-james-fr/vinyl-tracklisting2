@@ -1,0 +1,82 @@
+:root {
+  /*------- COLORS -------*/
+  --color-white: #ffffff;
+  --color-gray-light: #ebeaea;
+  --color-gray-dark: #474848;
+  --color-gray-strong: #757278;
+  --color-gray-dark-opacity: rgba(117, 114, 120, 0.9);
+  --color--gray-medium-opacity: rgba(235, 234, 234, 0.94);
+  --color-gray-light-opacity: rgba(217, 217, 217, 0.54);
+  --color-gray-tracklisting: #d9d9d9;
+  --color-gray-slightly-cream: #d3d3d3;
+  --color-orange: #d17f33;
+  --color-orange-lighter: hsl(29, 95%, 61%);
+  --color-orange-opacity: #d07f33cf;
+  --color-orange-opacity-darker: #623c19cf;
+  --color-orange-dark: #1e1204;
+  --color-blue: hsl(217, 20%, 43%);
+  --color-cream: #f3eee0;
+  --color-black-orange: #190c04cf;
+  --color-black: black;
+  --color-sides-color: #2c2c1e8a;
+  --color-c: hsl(39, 43%, 51%);
+  --color-d: hsl(207, 13%, 43%);
+  --color-e: hsl(49, 23%, 51%);
+  --color-f: hsl(197, 6%, 43%);
+  --color-success: #04aa6d;
+
+  /*------- FONTS -------*/
+  --font-size-1: 1rem;
+  /* paragraph */
+  --font-size-2: 1.625rem;
+  /* header */
+  --font-size-3: 1.25rem;
+  /* title */
+  --font-family-1: "Kanit";
+  --font-family-2: "Syne";
+
+  --number-pages: 2;
+}
+
+$z-index: (
+  modal               : 500,
+  header              : 400,
+  audio-player-close  : 101,
+  audio-player        : 100,
+  overlay             : 2,
+  home__infoblock     : 1,
+  app                 : 1,
+  timing_bottom       : 1,
+  sine                : 0,
+  vinyl               : 0
+);
+
+@media (min-width: 1280px) {
+  html {
+    font-size: calc(1rem + ((1vw - 12.8px) * 1.1803));
+    min-height: 0vw;
+  }
+}
+
+@media (min-width: 2500px) {
+  html {
+    font-size: 30.4px;
+  }
+}
+
+$z-indexes: (
+  "modal",
+  "sidebar",
+  “header”
+);
+
+@function z-index($name) {
+  @if index($z-indexes, $name) {
+    @return (length($z-indexes) - index($z-indexes, $name))+1;
+  }
+
+  @else {
+    @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
+    @return null;
+  }
+}

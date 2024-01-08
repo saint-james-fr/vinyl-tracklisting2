@@ -1,0 +1,217 @@
+/*----************ APP *----************ */
+
+.app__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  min-height: 50vh;
+}
+
+.side__container {
+  margin-block: 1.25rem;
+  min-width: 32vw;
+  border: solid 0.0625rem var(--color-cream);
+  background-color: var(--color-sides-color);
+}
+
+.time-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.handle-function {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 0.625rem;
+  margin-inline: 2vw;
+  cursor: grab;
+  border-radius: 0.41rem;
+  padding: 0.125rem 0.125rem 0.125rem 1.25rem;
+
+  &:active {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+  }
+}
+
+@media screen and (min-width: 890px) {
+  .side__container {
+    margin-inline: 1.25rem;
+  }
+
+  .handle-function {
+    height: 1.875rem;
+  }
+}
+
+.color-side-a {
+  background-color: var(--color-orange);
+}
+
+.color-side-b {
+  background-color: var(--color-blue);
+}
+
+.color-side-c {
+  background-color: var(--color-c);
+}
+
+.color-side-d {
+  background-color: var(--color-d);
+}
+
+.color-side-e {
+  background-color: var(--color-e);
+}
+
+.color-side-f {
+  background-color: var(--color-f);
+}
+
+.row {
+  transition: opacity 300ms ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.16) 0rem 0.0625rem 0.25rem;
+  will-change: opacity;
+}
+
+.row_faded-out {
+  opacity: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.625rem 0.625rem;
+}
+
+.row input {
+  border: none;
+  color: var(--color-cream);
+  font-weight: 200;
+  font-family: "Kanit";
+  background: transparent;
+  text-align: left;
+  font-size: 1rem;
+  box-sizing: border-box;
+  text-transform: inherit;
+}
+
+.row input[type="text"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 66%;
+  transition: all 0.2s ease;
+}
+
+.row input::-webkit-input-placeholder {
+  color: var(--color-cream);
+  font-weight: 200;
+  font-family: "Kanit";
+}
+
+.row input:-moz-placeholder {
+  color: var(--color-cream);
+  font-weight: 200;
+  font-family: "Kanit";
+}
+
+.row input::-moz-placeholder {
+  color: var(--color-cream);
+  font-weight: 200;
+  font-family: "Kanit";
+}
+
+.row input:-ms-input-placeholder {
+  color: var(--color-cream);
+  font-weight: 200;
+  font-family: "Kanit";
+}
+
+.row input::-ms-input-placeholder {
+  color: var(--color-cream);
+  font-weight: 200;
+  font-family: "Kanit";
+}
+
+.row input,
+.row input::placeholder {
+  color: var(--color-cream);
+  font-weight: 200;
+  font-family: "Kanit";
+}
+
+.positionA,
+.positionB {
+  padding-right: 0.625rem;
+  min-width: 1.9375rem;
+}
+
+.title-background {
+  background-color: darkred;
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+.title-input {
+  cursor: text;
+}
+
+.position-span {
+  position: relative;
+  left: -20px;
+  font-weight: 400;
+
+  @include mobile {
+    left: -17px;
+  }
+}
+
+.minute-input,
+.second-input {
+  width: 2.1875rem;
+  padding: 0.3rem;
+}
+
+.minute-input-container,
+.second-input-container {
+  display: inline;
+  position: relative;
+}
+
+@mixin time-sup {
+  position: absolute;
+  color: var(--color-cream);
+  text-transform: uppercase;
+  font-size: 0.45rem;
+  bottom: 0.5rem;
+  right: -3px;
+}
+
+.minute-input-container::after {
+  content: "min";
+  @include time-sup;
+}
+
+.second-input-container::after {
+  content: "sec";
+  @include time-sup;
+  right: 1px;
+}
+
+.second-input {
+  margin-right: 0.3125rem;
+}
+
+@media screen and (max-width: 890px) {
+  .app__container {
+    display: block;
+    min-height: auto;
+  }
+}

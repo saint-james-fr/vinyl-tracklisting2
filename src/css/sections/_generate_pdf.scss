@@ -1,0 +1,79 @@
+/*---------------------------- GENERATE PDF ---------------------------- */
+
+#section__pdf .content__container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+
+#section__pdf {
+  background-image: -webkit-gradient(linear,
+      left top,
+      left bottom,
+      from(rgba(2, 0, 36, 1)),
+      color-stop(23%, rgba(2, 0, 36, 0.811843487394958)),
+      color-stop(38%, rgba(2, 0, 36, 0.6885941876750701)),
+      color-stop(86%, rgba(127, 99, 0, 0.03593312324929976))),
+    url("/img/pic2-cutting-c-mb-mastering.jpg");
+  background-image: -webkit-linear-gradient(top,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(2, 0, 36, 0.811843487394958) 23%,
+      rgba(2, 0, 36, 0.6885941876750701) 38%,
+      rgba(127, 99, 0, 0.03593312324929976) 86%),
+    url("/img/pic2-cutting-c-mb-mastering.jpg");
+  background-image: -moz-linear-gradient(top,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(2, 0, 36, 0.811843487394958) 23%,
+      rgba(2, 0, 36, 0.6885941876750701) 38%,
+      rgba(127, 99, 0, 0.03593312324929976) 86%),
+    url("/img/pic2-cutting-c-mb-mastering.jpg");
+  background-image: -o-linear-gradient(top,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(2, 0, 36, 0.811843487394958) 23%,
+      rgba(2, 0, 36, 0.6885941876750701) 38%,
+      rgba(127, 99, 0, 0.03593312324929976) 86%),
+    url("/img/pic2-cutting-c-mb-mastering.jpg");
+  background-image: linear-gradient(180deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(2, 0, 36, 0.811843487394958) 23%,
+      rgba(2, 0, 36, 0.6885941876750701) 38%,
+      rgba(127, 99, 0, 0.03593312324929976) 86%),
+    url("/img/pic2-cutting-c-mb-mastering.jpg");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position-y: 40%;
+}
+
+.pdf__infoblock {
+  background-color: var(--color-gray-dark-opacity);
+  width: min(28.75rem, 80vw);
+  height: auto;
+  margin: 0 auto;
+  margin-bottom: 5vh;
+  padding: 1.5em;
+  text-align: center;
+}
+
+@media screen and (max-width: 890px) {
+  .pdf__infoblock {
+    width: 80vw;
+  }
+}
+
+.credits {
+  width: 70%;
+}

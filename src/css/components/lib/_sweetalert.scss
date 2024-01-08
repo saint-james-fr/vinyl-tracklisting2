@@ -1,0 +1,14 @@
+.sweet-alert-button {
+  background-color: black;
+  color: var(--color-cream) !important;
+  border: none !important;
+  @include handle-hover-active((background-color: var(--color-orange), color: var(--color-cream)));
+}
+
+.swal-overlay {
+  background-color: rgba(24, 24, 24, 0.45) !important;
+}
+
+.swal-text {
+  font-family: var(--font-family-1) !important;
+}

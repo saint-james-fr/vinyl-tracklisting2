@@ -1,0 +1,101 @@
+.header {
+  height: 2.8125rem;
+  background-color: var(--color-gray-dark);
+  width: 100%;
+  position: fixed;
+  z-index: map-get($z-index, header);
+}
+
+.header__container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: baseline;
+  -webkit-align-items: baseline;
+  -moz-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+}
+
+nav {
+  width: 38vw;
+  margin-top: 0.9375rem;
+}
+
+nav > ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+nav > ul > li {
+  font-family: var(--font-family-1);
+  font-size: -webkit-calc(0.7 * var(--font-size-2));
+  font-size: -moz-calc(0.7 * var(--font-size-2));
+  font-size: calc(0.7 * var(--font-size-2));
+  text-transform: uppercase;
+  color: var(--color-cream);
+  display: inline-block;
+  list-style: none;
+  letter-spacing: 0.0625rem;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 1156px) {
+  nav > ul > li {
+    font-size: 0.9em;
+  }
+  .logo a {
+    font-size: 0.8em;
+  }
+}
+
+nav > ul > li a,
+.logo a {
+  -webkit-transition: 0.13s ease-in-out;
+  -o-transition: 0.13s ease-in-out;
+  -moz-transition: 0.13s ease-in-out;
+  transition: 0.13s ease-in-out;
+}
+
+nav > ul > li a:hover,
+.logo a:hover {
+  @include not-mobile {
+  color: var(--color-orange) !important;
+  }
+}
+nav > ul > li a:active,
+.logo a:active {
+  @include mobile {
+  color: var(--color-orange) !important;
+  }
+}
+
+.header .logo {
+  font-size: var(--font-size-2);
+}
+
+@media screen and (max-width: 890px) {
+  .header {
+    display: none;
+  }
+}

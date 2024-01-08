@@ -1,0 +1,174 @@
+/*---------------------------- HOME ----------------------------*/
+
+#section__home {
+  height: auto;
+  background-color: black;
+}
+
+#section__home_background {
+  height: 48vh;
+  background-image: url(/img/pic1-vinyl-records-stock.jpg);
+  background-repeat: no-repeat;
+  -webkit-background-size: 102% 102%;
+  -o-background-size: 102%;
+  background-size: 102%;
+  background-position-y: -19vh;
+}
+
+#section__home .content__container {
+  height: 70vh;
+}
+
+#section__home .logo {
+  font-size: -webkit-calc(2 * var(--font-size-2));
+  font-size: -moz-calc(2 * var(--font-size-2));
+  font-size: calc(2 * var(--font-size-2));
+  display: none;
+  text-align: right;
+  padding-top: 6.25rem;
+  padding-bottom: 3.125rem;
+  margin-right: -0.4vw;
+}
+
+.home__infos_container {
+  overflow: hidden;
+  width: 100%;
+  background-color: black;
+}
+
+.home__infos {
+  margin: 0 auto;
+  width: 82%;
+  padding: 1.5em 0;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media screen and (min-width: 1281px) {
+  .home__infos {
+    width: 70%;
+  }
+}
+
+.home__infoblock {
+  width: 100%;
+  position: relative;
+  z-index: map-get($z-index, home__infoblock);
+  background: linear-gradient(90deg, #000000a1 26%, #00000024 71%);
+}
+
+.home__infoblock p {
+  margin-bottom: 0.9375rem;
+}
+
+.block-title {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 2rem;
+  line-height: 1.2em;
+  margin: 0 auto 0 auto;
+  font-weight: bold;
+  padding-bottom: 0.3125rem;
+}
+
+@media screen and (max-width: 890px) {
+  .block-title {
+    font-size: 1.8rem;
+  }
+
+  #section__home .logo {
+    font-size: -webkit-calc(var(--font-size-2));
+    font-size: -moz-calc(var(--font-size-2));
+    font-size: calc(var(--font-size-2));
+    display: block;
+    text-align: center;
+    padding: 3.125rem 0 1.25rem 0;
+  }
+
+  #section__home {
+    min-height: 100vh;
+  }
+}
+
+.align-buttons {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+#any-data-sentence {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-column-span: 3;
+  grid-column-end: 4;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-row-span: 0;
+  grid-row-end: 2;
+  position: relative;
+  left: -1.25rem;
+  text-align: right;
+  width: 100%;
+  bottom: 6.25rem;
+}
+
+.grid5 {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-column-span: 3;
+  grid-column-end: 4;
+  -ms-grid-row: 3;
+  grid-row-start: 3;
+  -ms-grid-row-span: 1;
+  grid-row-end: 4;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding-bottom: 2.5em;
+  padding-top: 3.2em;
+}
+
+@media screen and (max-width: 890px) {
+  .home__infos {
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+  }
+
+  #section__home_background {
+    height: 19vh;
+    background-image: url(/img/pic1-vinyl-records-stock-dimmed.jpg),
+      -webkit-gradient(linear, left top, left bottom, from(black), to(black));
+    background-image: url(/img/pic1-vinyl-records-stock-dimmed.jpg),
+      -webkit-linear-gradient(black, black);
+    background-image: url(/img/pic1-vinyl-records-stock-dimmed.jpg),
+      -moz-linear-gradient(black, black);
+    background-image: url(/img/pic1-vinyl-records-stock-dimmed.jpg),
+      -o-linear-gradient(black, black);
+    background-image: url(/img/pic1-vinyl-records-stock-dimmed.jpg),
+      linear-gradient(black, black);
+    background-blend-mode: darken;
+  }
+}

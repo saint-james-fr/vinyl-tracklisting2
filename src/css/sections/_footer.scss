@@ -1,0 +1,10 @@
+.footer {
+  background-color: var(--color-black);
+  min-height: 200px;
+}
+
+.footer a {
+  color: var(--color-orange) !important;
+
+  @include handle-hover-active((color: var(--color-orange)));
+}

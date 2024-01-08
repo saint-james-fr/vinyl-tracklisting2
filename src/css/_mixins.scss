@@ -1,0 +1,48 @@
+@mixin cover-background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+@mixin font-face($name, $file, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: "#{$name}";
+    src: url("/#{$name}/#{$file}.woff2") format("woff2"),
+    url("/#{$name}/#{$file}.woff") format("woff");
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+  }
+}
+
+@mixin not-mobile {
+  @media screen and (min-width: 767px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 766px) {
+    @content;
+  }
+}
+
+$breakpoint: 767px;
+
+@mixin handle-hover-active($styles) {
+  @media screen and (min-width: $breakpoint) {
+    &:hover {
+      @each $property, $value in $styles {
+        #{$property}: $value;
+      }
+    }
+  }
+
+  @media screen and (max-width: $breakpoint) {
+    &:active {
+      @each $property, $value in $styles {
+        #{$property}: $value;
+      }
+    }
+  }
+}

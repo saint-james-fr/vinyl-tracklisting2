@@ -1,0 +1,261 @@
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--color-black);
+}
+
+body,
+p,
+.block-title,
+.text {
+  font-family: var(--font-family-1);
+  font-weight: 200;
+  color: var(--color-cream);
+}
+
+p {
+  font-size: 1.3125rem;
+}
+
+::-webkit-input-placeholder {
+  color: var(--color-black);
+}
+
+:-moz-placeholder {
+  color: var(--color-black);
+}
+
+::-moz-placeholder {
+  color: var(--color-black);
+}
+
+:-ms-input-placeholder {
+  color: var(--color-black);
+}
+
+::-ms-input-placeholder {
+  color: var(--color-black);
+}
+
+::placeholder {
+  color: var(--color-black);
+}
+
+.page__container-basics {
+  display: block;
+  min-width: 100%;
+  height: 640px;
+  background-color: var(--color-black);
+}
+
+.page__container-basics {
+  min-height: 100vh;
+}
+
+.bigger-text {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+@media screen and (min-width: 890px) {
+  .page__container-basics-not-first {
+    min-height: -webkit-calc(100vh - 45px);
+    min-height: -moz-calc(100vh - 45px);
+    min-height: calc(100vh - 45px);
+  }
+}
+
+.page__container-first,
+.page__container-basics {
+  min-height: 34.375rem;
+}
+
+/* * fix for mobile issue with keyboard  */
+
+section {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.sortable-ghost {
+  opacity: 0.4;
+}
+
+.content__container {
+  max-width: 83%;
+  height: 100%;
+  margin: auto;
+}
+
+@media screen and (max-width: 2000px) {
+  .content__container {
+    max-width: 90%;
+    height: 100%;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .content__container {
+    max-width: 70%;
+  }
+}
+
+.logo {
+  color: var(--color-cream);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  font-family: var(--font-family-2);
+}
+
+.surligne {
+  display: inline-block;
+  -webkit-border-radius: 0.3125rem;
+  border-radius: 0.3125rem;
+  background-color: var(--color-orange);
+  padding: 0.1875rem 0.2875rem;
+}
+
+.surligne__padding {
+  padding: 0 10px;
+}
+
+.underline {
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+strong {
+  font-weight: 400;
+}
+
+
+
+.clickable-div {
+  cursor: pointer;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2.1875rem;
+  display: block;
+  width: 40%;
+  padding: 1em;
+  background-color: var(--color-gray-light-opacity);
+  text-transform: lowercase;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  margin: 2.5rem auto 1.25rem auto;
+}
+
+.page-title.logo {
+  font-size: -webkit-calc(0.8 * var(--font-size-2));
+  font-size: -moz-calc(0.8 * var(--font-size-2));
+  font-size: calc(0.8 * var(--font-size-2));
+}
+
+.half-hero {
+  height: 50%;
+}
+
+.two-columns>div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.height-auto {
+  height: auto;
+}
+
+.tiers,
+.tiers-credits {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+  -webkit-align-items: flex-end;
+  -moz-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  padding: 2.5rem 0.625rem;
+}
+
+@media screen and (max-width: 890px) {
+  .tiers-credits {
+    font-size: 0.8rem;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+}
+
+.two-columns>div>div {
+  width: 50%;
+}
+
+.radius {
+  -webkit-border-radius: 0.225rem;
+  border-radius: 0.225rem;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+
+.box-shadow {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0rem 0.25rem 0.75rem;
+  box-shadow: rgba(0, 0, 0, 0.3) 0rem 0.25rem 0.75rem;
+}
+
+.scroll-margin-top {
+  scroll-margin-top: 2.8125rem;
+}
+
+@media screen and (max-width: 890px) {
+  .page-title {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .scroll-margin-top {
+    scroll-margin-top: 0rem;
+  }
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.bolder {
+  font-weight: bolder;
+}
+
+a.anchor-offset {
+  display: block;
+  position: relative;
+  top: -45px;
+  visibility: hidden;
+}

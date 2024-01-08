@@ -1,0 +1,125 @@
+#animated_circle__container {
+  text-align: center;
+  height: 300px;
+  width: 100%;
+  // margin-bottom: 2rem;
+  position: relative;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+}
+
+#animated_circle__container_bis {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: map-get($z-index , vinyl);
+}
+
+#animated_circle {
+  width: auto;
+  position: relative;
+  left: 1vw;
+  max-width: 700px;
+  overflow-x: hidden;
+  transform: rotateX(-70deg) perspective(1200px) rotateZ(10deg) rotateY(10deg)
+    rotate3d(0.1, 0.1, 0, 3deg);
+}
+
+@media screen and (max-width: 1100px) {
+  #animated_circle__container {
+    -webkit-backface-visibility: hidden;
+    height: 250px;
+  }
+  #animated_circle {
+    max-width: 50vw;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #animated_circle__container {
+    height: 250px;
+  }
+  #animated_circle {
+    max-width: 70vw;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #animated_circle__container {
+    height: 150px;
+  }
+  #animated_circle {
+    max-width: 70vw;
+  }
+}
+
+circle {
+  stroke: var(--color-cream);
+  fill: transparent;
+  stroke-dasharray: 1.708; /* ½π */
+}
+
+.clignotte {
+  animation: clignotte 20s linear infinite;
+}
+
+@keyframes clignotte {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.clignotte_decale {
+  animation: clignotte 20s infinite;
+  animation-delay: 10s;
+}
+
+.longer {
+  stroke-dasharray: 1.708;
+  stroke-dashoffset: 1.908;
+  animation: dash 2s linear forwards;
+}
+
+.circle_orange {
+  stroke: var(--color-orange);
+}
+
+#rotate-clockwise,
+#rotate-counter-clockwise {
+  animation: 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+#rotate-clockwise {
+  animation-name: rotation-clockwise;
+}
+
+#rotate-counter-clockwise {
+  animation-name: rotation-counter-clockwise;
+}
+
+@keyframes rotation-clockwise {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotation-counter-clockwise {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0);
+  }
+}

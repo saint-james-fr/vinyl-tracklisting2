@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Primary Meta Tags -->
+    <title>Vinyl Tracklisting</title>
+    <meta name="title" content="Vinyl Tracklisting" />
+    <meta
+      name="description"
+      content="Our free tool helps you to build the perfect tracklisting. Just import audio, drag and drop tracks or sort them with our algorithm."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vinyl-tracklisting.com/" />
+    <meta property="og:title" content="Vinyl Tracklisting" />
+    <meta
+      property="og:description"
+      content="Our free tool helps you to build the perfect tracklisting. Just import audio, drag and drop tracks or sort them with our algorithm."
+    />
+    <meta
+      property="og:image"
+      content="https://vinyl-tracklisting.com/img/meta-image.png"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://vinyl-tracklisting.com/" />
+    <meta property="twitter:title" content="Vinyl Tracklisting" />
+    <meta
+      property="twitter:description"
+      content="Our free tool helps you to build the perfect tracklisting. Just import audio, drag and drop tracks or sort them with our algorithm."
+    />
+    <meta
+      property="twitter:image"
+      content="https://vinyl-tracklisting.com/img/meta-image.png"
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/img/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/img/favicon/site.webmanifest" />
+
+    <!-- FONT AWESOME -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <!-- ANIMATE ON SCROLL CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-GV6J6MNF2X"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-GV6J6MNF2X");
+    </script>
+  </head>
+  <body>
+    <div id="svelte_app"></div>
+    <script
+    src="https://cdn.jsdelivr.net/gh/simonbengtsson/jsPDF@requirejs-fix-dist/dist/jspdf.debug.js"
+    defer
+    ></script>
+    <script src="https://unpkg.com/jspdf-autotable@2.3.2" defer></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

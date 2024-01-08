@@ -1,0 +1,349 @@
+$height_controls: 4.2rem;
+$height_track: 6px;
+$height_thumb: 16px;
+$width_thumb: 6px;
+$color_track: transparent;
+$color_track_hover: transparent;
+$color_background: var(--color-black-orange);
+$color_button_hover: var(--color-orange-lighter);
+$size-small: 12px;
+$size-title: 14px;
+$size-normal: 20px;
+$size_title_container: 31px;
+$color-text: var(--color-cream);
+
+@mixin button-hover {
+  transition: color 0.05s ease-in-out;
+
+  @include handle-hover-active((color: $color_button_hover ))
+}
+
+.audio_player__hidden {
+  transform: translateY(500%);
+  transition: transform 0.7s ease-in-out;
+}
+
+.audio_player__show {
+  transform: translateY(0);
+}
+
+#audio_player__container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: map-get($z-index , audio-player);
+}
+
+
+#audio_player__title__container {
+  background-color: $color_background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: $size_title_container;
+}
+
+
+
+#audio_player__title {
+  text-align: center;
+  ;
+  width: 550px;
+  font-size: $size-title;
+  color: $color_text;
+}
+
+#syncButton {
+  position: absolute;
+  left: 0;
+  bottom: 9px;
+  font-size: $size-title;
+  cursor: pointer;
+  @include button-hover;
+}
+
+#syncButton::after {
+  content: "synchronize";
+  font-family: var(--font-family-1);
+  text-transform: uppercase;
+  font-size: $size-small;
+  font-weight: 500;
+  margin-inline: 10px;
+  position: relative;
+  top: -2px;
+  @include button-hover;
+
+}
+
+#audio_player__controls {
+  position: relative;
+  width: 100%;
+  height: auto;
+  background-color: $color_background;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 4px;
+}
+
+#audio_player__close {
+  z-index: map-get($z-index , audio-player-close);
+  position: absolute;
+  font-weight: 400;
+  top: -33px;
+  right: 0px;
+  font-size: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: $color_text;
+  transition: color 0.1s ease-in-out;
+
+  @include handle-hover-active((color: $color_button_hover))
+}
+
+#audio_player__progress_container {
+  position: relative;
+  width: 475px;
+  height: 13px;
+}
+
+#audio_player__actual_time,
+#audio_player__end_time {
+  position: absolute;
+  font-size: $size-small;
+}
+
+#audio_player__actual_time {
+  top: 0;
+  left: -37px;
+}
+
+#audio_player__end_time {
+  top: 0;
+  right: -37px;
+}
+
+
+
+#audio_player__progress {
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  -webkit-appearance: none;
+  background: transparent;
+  position: relative;
+  top: -6px;
+  padding: 0px;
+  border-radius: 15px;
+  background:
+    linear-gradient(to right,
+      #d17f33,
+      #d17f33 0%,
+      #623c19cf 0%);
+
+
+
+  // Track
+  &::-webkit-slider-runnable-track {
+    background: $color_track;
+    height: $height_track;
+    border-radius: 15px;
+    transition: background 0.05s ease-in-out;
+    @include handle-hover-active((background: $color_track_hover))
+  }
+
+  /******** Firefox ********/
+  &::-moz-range-track {
+    background: $color_track;
+    height: $height_track;
+    border-radius: 15px;
+    transition: background 0.05s ease-in-out;
+    @include handle-hover-active((background: $color_track_hover))
+  }
+
+  // Thumb
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -5px;
+    /* Centers thumb on the track */
+    background-color: $color_text;
+    height: $height_thumb;
+    width: $width_thumb;
+    border-radius: 10px;
+  }
+
+  /******** Firefox ********/
+  &::-moz-range-thumb {
+    border: none;
+    /*Removes extra border that FF applies*/
+    border-radius: 0;
+    /*Removes default border-radius that FF applies*/
+    background-color: $color_text;
+    height: $height_thumb;
+    width: $width_thumb;
+  }
+
+  // Focus
+
+
+  &:focus {
+    outline: none;
+  }
+}
+
+#audio_player__controls_container {
+  width: 550px;
+}
+
+#audio_player__main_controls {
+  height: 2rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+
+#audio_player__playpreviousnext {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+#audio_player__prev,
+#audio_player__play,
+#audio_player__next {
+  width: $size-normal;
+  height: $size-normal;
+  font-size: $size-normal;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  @include button-hover;
+}
+
+#audio_player__mute {
+  font-size: $size-title;
+  cursor: pointer;
+  @include button-hover;
+  position: relative;
+  top: -5px;
+}
+
+#audio_player__volume_container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+}
+
+#audio_player__volume {
+  cursor: pointer;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  -webkit-appearance: none;
+  background: transparent;
+  position: relative;
+  top: -6px;
+  padding: 0px;
+  border-radius: 15px;
+  background:
+    linear-gradient(to right,
+      #f3eee0,
+      #f3eee0 100%,
+      #623c19cf 100%);
+
+
+
+  // Track
+  &::-webkit-slider-runnable-track {
+    background: $color_track;
+    height: $height_track;
+    border-radius: 15px;
+    transition: background 0.05s ease-in-out;
+
+    @include handle-hover-active((background: $color_track_hover))
+  }
+
+  /******** Firefox ********/
+  &::-moz-range-track {
+    background: $color_track;
+    height: $height_track;
+    border-radius: 15px;
+    transition: background 0.05s ease-in-out;
+    @include handle-hover-active((background: $color_track_hover))
+
+  }
+
+  // Thumb
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -5px;
+    /* Centers thumb on the track */
+    background-color: $color_text;
+    height: $height_thumb;
+    width: $width_thumb;
+    border-radius: 10px;
+  }
+
+  /******** Firefox ********/
+  &::-moz-range-thumb {
+    border: none;
+    /*Removes extra border that FF applies*/
+    border-radius: 0;
+    /*Removes default border-radius that FF applies*/
+    background-color: $color_text;
+    height: $height_thumb;
+    width: $width_thumb;
+  }
+
+  // Focus
+
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@media screen and (max-width: 300px) {
+
+  #audio_player__volume_container {
+    width: 85px;
+  }
+}
+
+
+@media screen and (max-width: 550px) {
+
+  #audio_player__progress_container {
+    width: 70%;
+  }
+
+  #audio_player__volume_container {
+    width: 100px;
+  }
+
+
+  #audio_player__title,
+  #audio_player__controls_container {
+    width: 90%;
+  }
+}

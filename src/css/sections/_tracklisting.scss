@@ -1,0 +1,45 @@
+/*---------------------------- TRACKLISTING ---------------------------- */
+
+#section__tracklisting {
+  background-color: var(--color-black);
+  height: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: map-get($z-index , app);
+}
+
+#page-container-tracklisting {
+  height: auto;
+}
+
+#section__tracklisting .content__container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  -moz-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  justify-content: space-evenly;
+}
+
+.tracklisting__logo {
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(0.25turn,
+      transparent,
+      var(--color-orange),
+      transparent);
+  border-image-slice: 1;
+  width: 100%;
+  text-align: center;
+}

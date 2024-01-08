@@ -1,0 +1,45 @@
+canvas {
+  width: 120vw;
+  position: absolute;
+  right: -12vw;
+  bottom: -23vw;
+  z-index: map-get($z-index, sine);
+  animation: fade__in 5s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+}
+
+@keyframes fade__in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  canvas {
+    width: 184vw;
+    position: absolute;
+    right: -64vw;
+    bottom: -50vw;
+  }
+}
+
+@media screen and (min-width: 2500px) {
+  canvas {
+    width: 174vw;
+    position: absolute;
+    right: -52vw;
+    bottom: -47vw;
+  }
+}
+
+.canvas-container {
+  position: relative;
+}
+
+@media screen and (max-width: 890px) {
+  canvas {
+    bottom: -53vw;
+  }
+}
