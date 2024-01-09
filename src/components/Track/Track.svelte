@@ -1,8 +1,8 @@
 <script lang="ts">
-  import SideControls from "components/SideControls/SideControls.svelte";
   import { secondsToMinute } from "lib/time";
   import { vinylStore } from "stores";
   import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
 
   export let index: number;
   export let prefix: string;
@@ -11,8 +11,9 @@
   let title = "";
   let position: number;
   let track: TrackType;
-  let minute = 0;
-  let second = 0;
+  let minute: number | undefined = 0;
+  let second: number | undefined = 0;
+  let handler: HTMLElement;
 
   $: {
     position = index + 1;
@@ -24,14 +25,18 @@
     console.log(side);
     track = side.tracks[index];
     title = track.title;
+    // @ts-ignore
     minute = secondsToMinute(track.length)[0];
+    // @ts-ignore
     second = secondsToMinute(track.length)[1];
+    handler.classList.add("show");
   });
 </script>
 
 <div
   class="list-group-item handle-function row color-side-{prefix.toLowerCase()}"
   id="handler {prefix}{position}"
+  bind:this={handler}
 >
   <span
     class="position{position} position-span"
@@ -68,9 +73,12 @@
         on:input={(e) => {
           if (e.currentTarget.value.length > 2) return (minute = 0);
           if (second === undefined) second = 0;
+          // @ts-ignore
           if (minute > 59) minute = 59;
+          // @ts-ignore
           if (minute < 0) minute = 0;
           $vinylStore.sides[sideIndex].tracks[index].length =
+            // @ts-ignore
             minute * 60 + second;
         }}
       />
@@ -96,6 +104,7 @@
           if (second === undefined) second = 0;
           if (second > 59) second = 59;
           if (second < 0) second = 0;
+          // @ts-ignore
           $vinylStore.sides[sideIndex].tracks[index].length =
             minute * 60 + second;
         }}
@@ -103,3 +112,14 @@
     </div>
   </div>
 </div>
+
+<style lang="scss">
+  .handle-function {
+    opacity: 0;
+    transition: 100ms linear opacity;
+  }
+
+  .show {
+    opacity: 1;
+  }
+</style>

@@ -15,7 +15,8 @@ const getSideIndex = (sideElement: HTMLElement): number | undefined => {
 };
 
 let emptyTitleId = 10000;
-const preventEmptySide = (sideElement: HTMLElement): void => {
+
+export const preventEmptySide = (sideElement: HTMLElement): void => {
   if (sideElement.children.length === 0) {
     const sideIndex = getSideIndex(sideElement);
     if (sideIndex === undefined) return;
@@ -85,6 +86,10 @@ export const createSortableSide = (sideElement: HTMLElement): void => {
         side.tracks.splice(e.newDraggableIndex, 0, track);
         return storeValue;
       });
+    },
+    onStart: (e) => {
+      preventEmptySide(e.from);
+      preventEmptySide(e.to);
     },
     onEnd: (e) => {
       preventEmptySide(e.from);

@@ -4,6 +4,7 @@ const sweetAlertButton: object = {
   visible: true,
   className: "sweet-alert-button",
   closeModal: true,
+  align: "center",
 };
 
 export const sweetAlertOptionsError: object = {

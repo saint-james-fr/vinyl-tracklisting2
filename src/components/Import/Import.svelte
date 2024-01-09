@@ -1,6 +1,8 @@
 <script lang="ts">
   import { vinylStore } from "stores";
 
+  let emptyTitleIdBis = 10000000;
+
   const handleInput = (e: Event) => {
     const target = e.target as HTMLInputElement;
     if (!e.target) return;
@@ -31,13 +33,12 @@
           audio.onloadedmetadata = resolve;
         });
         // truncate duration to 0 decimals
-
         let duration = Math.trunc(audio.duration);
-
         const title = file.name;
         let totalSides = $vinylStore.sides.length;
         // distribution cyclique
         let sideIndex = i % totalSides;
+        // for updating store
         vinylStore.update((store) => {
           store.sides[sideIndex].tracks = [
             ...store.sides[sideIndex].tracks,
@@ -51,6 +52,20 @@
           return store;
         });
       };
+      if ($vinylStore.sides.length > 1 && files.length == 1) {
+        vinylStore.update((store) => {
+          store.sides[1].tracks = [
+            ...store.sides[1].tracks,
+            {
+              title: "",
+              length: undefined,
+              id: emptyTitleIdBis++,
+              prefix: "",
+            },
+          ];
+          return store;
+        });
+      }
 
       reader.readAsDataURL(file);
     }
@@ -60,7 +75,7 @@
 <label
   for="audioInput"
   class="home-secondary-button bigger-text centrer app__button"
-  id="audioInputLabel"><i class="fa-solid fa-upload"></i>  Import Audio</label
+  id="audioInputLabel"><i class="fa-solid fa-upload"></i>  Import</label
 >
 <input
   type="file"

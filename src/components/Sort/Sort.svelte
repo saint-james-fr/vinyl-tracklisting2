@@ -2,7 +2,7 @@
   import { vinylStore } from "stores";
   import { sortArraysClosestSum } from "lib/sort";
   import { tracksAreValid } from "lib/validate";
-  import { sweetAlertOptionsError } from "lib/sweet_alert";
+  import { sweetAlertOptionsError, sweetAlertOptionsSuccess } from "lib/sweet_alert";
   import swal from "sweetalert";
 
   const handleClick = () => {
@@ -27,6 +27,11 @@
       // we update store to regenerate ui
       $vinylStore.sides[i].tracks = resultArr1;
       $vinylStore.sides[i + 1].tracks = resultArr2;
+      // We send a message to the user
+      swal(
+        "Tracks have been sorted.\nIf you'd like to, you can now save your audio and release informations and generate your PDF.",
+        sweetAlertOptionsSuccess
+      );
     }
   };
 </script>
@@ -37,5 +42,5 @@
   class="home-secondary-button bigger-text centrer app__button"
   on:click={handleClick}
 >
-  <i class="fa-solid fa-right-left"></i>  Sort Tracks
+  <i class="fa-solid fa-right-left"></i>  Sort
 </div>
