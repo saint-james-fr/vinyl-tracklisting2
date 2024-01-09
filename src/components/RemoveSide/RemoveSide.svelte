@@ -2,14 +2,14 @@
   import { vinylStore } from "stores";
   import swal from "sweetalert";
   import { sweetAlertOptionsError } from "lib/sweet_alert";
-  let remove = "Remove Face B";
+  let remove = "Remove Side B";
   $: {
     if ($vinylStore.sides.length == 2) {
-      remove = "Remove Face B";
+      remove = "Remove Side B";
     } else if ($vinylStore.sides.length == 4) {
-      remove = "Remove Face C/D";
+      remove = "Remove Sides C/D";
     } else if ($vinylStore.sides.length == 6) {
-      remove = "Remove Face E/F";
+      remove = "Remove Sides E/F";
     }
   }
   const handleClick = () => {
@@ -31,7 +31,7 @@
 </script>
 
 <div
-  class="home-secondary-button bigger-text centrer app__button"
+  class="home-secondary-button bigger-text centrer app__button uppercase"
   id="remove_button"
   on:click={handleClick}
   class:hide={$vinylStore.sides.length == 1}

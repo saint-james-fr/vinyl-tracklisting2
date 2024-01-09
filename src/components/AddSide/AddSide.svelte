@@ -3,14 +3,14 @@
   import { createDefaultSide } from "lib/default";
   import swal from "sweetalert";
   import { sweetAlertOptionsError } from "lib/sweet_alert";
-  let add_sides = "Add Faces C/D";
+  let add_sides = "Add Sides C/D";
   $: {
     if ($vinylStore.sides.length == 2) {
-      add_sides = "Add Faces C/D";
+      add_sides = "Add Sides C/D";
     } else if ($vinylStore.sides.length == 4) {
-      add_sides = "Add Faces E/F";
+      add_sides = "Add Sides E/F";
     } else if ($vinylStore.sides.length == 1) {
-      add_sides = "Add Face B";
+      add_sides = "Add Side B";
     }
   }
 
@@ -27,7 +27,7 @@
 </script>
 
 <div
-  class="home-secondary-button bigger-text centrer app__button"
+  class="home-secondary-button bigger-text centrer app__button uppercase"
   on:click={handleClick}
   id="add_button"
   class:hide={$vinylStore.sides.length == 6}

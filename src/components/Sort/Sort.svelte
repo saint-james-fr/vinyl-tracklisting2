@@ -39,7 +39,7 @@
 <!-- disable A1 -->
 <div
   id="sort"
-  class="home-secondary-button bigger-text centrer app__button"
+  class="home-secondary-button bigger-text centrer app__button uppercase"
   on:click={handleClick}
 >
   <i class="fa-solid fa-right-left"></i>  Sort

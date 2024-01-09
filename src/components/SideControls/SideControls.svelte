@@ -30,7 +30,7 @@
 <div class="controls">
   <AddTrack {prefix} />
   <div class="controls-flex">
-    <div class="bolder face">FACE {prefix}</div>
+    <div class="bolder face">SIDE {prefix}</div>
     <div class="result-length">{minute}:{second}</div>
   </div>
   <RemoveTrack {prefix} />

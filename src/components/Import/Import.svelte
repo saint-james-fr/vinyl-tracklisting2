@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { sweetAlertOptionsError } from "lib/sweet_alert";
   import { vinylStore } from "stores";
+  import swal from "sweetalert";
 
   let emptyTitleIdBis = 10000000;
 
@@ -8,6 +10,13 @@
     if (!e.target) return;
     const files = target.files;
     if ((files && files.length == 0) || !files) return;
+    if ($vinylStore.sides.length > files.length) {
+        return swal(
+          "You don't have imported enough tracks.\nPlease try again.",
+          sweetAlertOptionsError
+        );
+      }
+
 
     // We empty the store
     vinylStore.update((store) => {
@@ -52,20 +61,7 @@
           return store;
         });
       };
-      if ($vinylStore.sides.length > 1 && files.length == 1) {
-        vinylStore.update((store) => {
-          store.sides[1].tracks = [
-            ...store.sides[1].tracks,
-            {
-              title: "",
-              length: undefined,
-              id: emptyTitleIdBis++,
-              prefix: "",
-            },
-          ];
-          return store;
-        });
-      }
+      // prevent empty sides by adding an empty track
 
       reader.readAsDataURL(file);
     }
@@ -74,7 +70,7 @@
 
 <label
   for="audioInput"
-  class="home-secondary-button bigger-text centrer app__button"
+  class="home-secondary-button bigger-text centrer app__button uppercase"
   id="audioInputLabel"><i class="fa-solid fa-upload"></i>  Import</label
 >
 <input
