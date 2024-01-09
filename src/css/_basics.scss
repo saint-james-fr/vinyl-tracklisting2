@@ -81,7 +81,8 @@ section {
 }
 
 .sortable-ghost {
-  opacity: 0.4;
+  opacity: 0.5;
+  filter: grayscale(100%)
 }
 
 .content__container {
