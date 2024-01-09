@@ -90,7 +90,7 @@
         </div>
       </div>
       <!-- APP CONTAINER -->
-      <div class="app__container" id="app">
+      <div class="app__container" class:app_one_side={$vinylStore.sides.length == 1} id="app">
         {#each $vinylStore.sides as side, index}
           <Side {side} {index} />
         {/each}
@@ -106,3 +106,9 @@
     </div>
   </section>
 </div>
+
+<style lang="scss">
+  .app_one_side {
+    grid-template-columns: 1fr;
+  }
+</style>
