@@ -18,6 +18,7 @@ interface VinylType {
 }
 
 interface FormType {
+  [key: string]: string; // Toutes les valeurs sont des chaînes
   catNr: string;
   artist: string;
   title: string;

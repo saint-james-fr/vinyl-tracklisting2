@@ -1,5 +1,17 @@
 <script lang="ts">
-  
+  import { formStore } from "stores";
+  import { generatePDF } from "lib/pdf";
+
+  let bitDepth = "";
+  let sampleRate = "";
+  let comments = "";
+
+  $: formStore.update((store) => {
+    store.bitDepth = bitDepth;
+    store.sampleRate = sampleRate;
+    store.comments = comments;
+    return store;
+  });
 </script>
 
 <div class="page__container-basics page__container-basics-not-first last__page">
@@ -16,6 +28,7 @@
                 ><input
                   type="radio"
                   name="sample_rate"
+                  bind:group={sampleRate}
                   value="44.1kHz"
                   data-form-type="other"
                 />44.1kHz</label
@@ -24,6 +37,7 @@
                 ><input
                   type="radio"
                   name="sample_rate"
+                  bind:group={sampleRate}
                   value="48kHz"
                   data-form-type="other"
                 />48kHz</label
@@ -32,6 +46,7 @@
                 ><input
                   type="radio"
                   name="sample_rate"
+                  bind:group={sampleRate}
                   value="88.2kHz"
                   data-form-type="other"
                 />88.2kHz</label
@@ -40,6 +55,7 @@
                 ><input
                   type="radio"
                   name="sample_rate"
+                  bind:group={sampleRate}
                   value="96kHz"
                   data-form-type="other"
                 />96kHz</label
@@ -58,6 +74,7 @@
                 ><input
                   type="radio"
                   name="bit_depth"
+                  bind:group={bitDepth}
                   value="16bits"
                   data-form-type="other"
                 />16Bits</label
@@ -66,6 +83,7 @@
                 ><input
                   type="radio"
                   name="bit_depth"
+                  bind:group={bitDepth}
                   value="24Bits"
                   data-form-type="other"
                 />24Bits</label
@@ -74,6 +92,7 @@
                 ><input
                   type="radio"
                   name="bit_depth"
+                  bind:group={bitDepth}
                   value="32Bits"
                   data-form-type="other"
                 />32Bits</label
@@ -88,6 +107,7 @@
               <textarea
                 id="comments"
                 name="comments"
+                bind:value={comments}
                 cols="30"
                 rows="6"
                 data-form-type="other"
@@ -95,7 +115,7 @@
             </label>
           </div>
           <div class="section__infos_next_button">
-            <a id="generatePDF" onclick="generatePDF()">
+            <a id="generatePDF" on:click={generatePDF}>
               <span class="surligne-inverse">
                 Export PDF   <i class="fa-solid fa-file-pdf"></i>
               </span>

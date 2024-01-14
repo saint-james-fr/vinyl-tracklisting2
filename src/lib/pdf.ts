@@ -1,22 +1,13 @@
-import { LedgerValidation } from "../data/ledger_validation";
-import { App } from "../app";
 import { sweetAlertOptionsError } from "./sweet_alert";
 import swal from "sweetalert";
 import { logoUri } from "./logo_uri";
-import { truncateString } from "../helpers/helpers";
+import { truncateString } from "./util";
+import { formStore, vinylStore } from "stores";
+import { get } from "svelte/store";
+import { tracksAreValid } from "./validate";
+import { secondsToMinute } from "./time";
 
-let catNr: string,
-  artist: string,
-  title: string,
-  format: string,
-  speed: string,
-  sampleRate: string,
-  bitDepth: string,
-  comments: string;
-
-const ledger = App.ledger;
 let actualPage: number;
-
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare const jsPDF: any;
@@ -27,13 +18,13 @@ declare const jsPDF: any;
 export function generatePDF(): void {
   const doc: any = new jsPDF();
   try {
-    getTracklistingData();
-    validatesTracklisting();
-    getFormValues();
+    get(vinylStore).sides.forEach((side) => {
+      tracksAreValid(side.tracks);
+    });
     validatesFormValues();
     writePDF(doc);
-    doc.save(`${catNr.toUpperCase()}-tracklisting.pdf`);
-  } catch (error) {
+    doc.save(`${get(formStore).catNr.toUpperCase()}-tracklisting.pdf`);
+  } catch (error: any) {
     swal(error.message, sweetAlertOptionsError);
     return;
   }
@@ -42,15 +33,15 @@ export function generatePDF(): void {
 // PDF FUNCTIONS
 
 function writePDF(doc: any) {
-  const cols = ["POS", "TITLE", "MIN", "SEC", "START"];
+  const cols = ["POSITION", "TITLE", "LENGTH", "START"];
   let sidePairs: string[][] = [];
-  if (App.sides.length === 1) {
-    sidePairs = [App.sides];
+  if (get(vinylStore).sides.length === 1) {
+    sidePairs = [get(vinylStore).sides[0].prefix];
   } else {
     // Group sides in pairs
-    sidePairs = groupSidesInPair(App.sides, sidePairs);
+    sidePairs = groupSidesInPair(get(vinylStore).sides);
   }
-  sidePairs.forEach((pair, index) => {
+  sidePairs.forEach((pair: string[], index) => {
     const rows: any[] = [];
     fillRows(rows, pair);
     generatePage(doc, index, () => {
@@ -65,48 +56,56 @@ function writePDF(doc: any) {
   generateComments(doc);
 }
 
-function groupSidesInPair(sides, sidePairs): string[][] {
+function groupSidesInPair(sides: SideType[]): string[][] {
+  const sidePairs: string[][] = [];
   for (let i = 0; i < sides.length; i += 2) {
-    const pair = sides.slice(i, i + 2);
+    const pair = sides.slice(i, i + 2).map((side) => side.prefix);
     sidePairs.push(pair);
   }
   return sidePairs;
 }
 
 // Fills a rows array with the data from the ledger
-function fillRows(rows, pair): void {
-  const formatSecond = (second: number): string | number => {
+function fillRows(rows: any, pair: string[]): void {
+  const formatTime = (second: number): string | number => {
     return second < 10 ? "0" + second : second;
   };
   // We iterate over the pair array to fill the rows array
   pair.forEach((side) => {
-    const sideData = ledger[`${side}Data`] as TrackType[];
+    const sideData = get(vinylStore).sides.find(
+      (s) => s.prefix === side
+    ).tracks;
     let cumulatedMinute = 0;
     let cumulatedSecond = 0;
-    const getCumulatedtime = (minute, second) => {
+
+    const getCumulatedtime = (minute: number, second: number) => {
       cumulatedMinute += minute;
       cumulatedSecond += second;
       if (cumulatedSecond >= 60) {
         cumulatedMinute++;
         cumulatedSecond -= 60;
       }
-      return [cumulatedMinute, formatSecond(cumulatedSecond)];
+      return [formatTime(cumulatedMinute), formatTime(cumulatedSecond)];
     };
     const cumulatedTime = ["00:00"];
 
     // We iterate over the sideData array to fill the rows array
-    sideData.forEach((element, index) => {
-      const formattedTitle = truncateString(element.title, 70);
+    sideData.forEach((track: TrackType, index: number) => {
+      let formattedTitle = truncateString(track.title, 65);
+      // removes file extension from title
+      formattedTitle = formattedTitle.replace(/\.[^/.]+$/, "");
+      if (track.length === undefined)
+        throw new Error("Track length is undefined");
+      let [minute, second] = secondsToMinute(track.length);
 
-      cumulatedTime.push(
-        getCumulatedtime(element.minute, element.second).join(":")
-      );
+      cumulatedTime.push(getCumulatedtime(minute, second).join(":"));
+      console.log(track.prefix)
+      const position = `${track.prefix}${index + 1}`;
       const temp = [
-        element.position,
+        position,
         // Remove accents from title
         formattedTitle.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
-        element.minute,
-        formatSecond(element.second),
+        `${formatTime(minute)}:${formatTime(second)}`,
         cumulatedTime[index],
       ];
       rows.push(temp);
@@ -114,7 +113,7 @@ function fillRows(rows, pair): void {
   });
 }
 
-function generateTable(doc, col, rows): void {
+function generateTable(doc: any, col: any, rows: any): void {
   const startY = 90;
   doc.autoTable(col, rows, {
     startY,
@@ -123,15 +122,12 @@ function generateTable(doc, col, rows): void {
         fontStyle: "bold",
       },
       1: {
-        cellWidth: 160,
+        cellWidth: 150,
       },
       2: {
-        cellWidth: 10,
+        cellWidth: 25,
       },
       3: {
-        cellWidth: 10,
-      },
-      4: {
         cellWidth: 25,
       },
     },
@@ -139,7 +135,7 @@ function generateTable(doc, col, rows): void {
 }
 
 function generatePage(doc: any, index: number, callback: () => void) {
-  const calculateNumberOfPages = (sides: string[]): number => {
+  const calculateNumberOfPages = (sides: SideType[]): number => {
     if (sides.length === 1) return 1;
     const numberOfPages = sides.length / 2;
     return numberOfPages;
@@ -150,7 +146,7 @@ function generatePage(doc: any, index: number, callback: () => void) {
     doc.addPage();
   }
   actualPage = index + 1;
-  const pageCount = calculateNumberOfPages(App.sides);
+  const pageCount = calculateNumberOfPages(get(vinylStore).sides);
 
   doc.setPage(pageCount);
   callback();
@@ -159,7 +155,7 @@ function generatePage(doc: any, index: number, callback: () => void) {
   generateText(doc, footerText, 10, 290, "regular", 10);
 }
 
-function generatePageMeta(doc): void {
+function generatePageMeta(doc: any): void {
   generateTracklistingMeta(doc);
   addLogo(doc);
   generateCredit(doc);
@@ -171,25 +167,25 @@ function generateCredit(doc: any): void {
   generateText(doc, credit, 60, 290, "regular", 10);
 }
 
-function generateTracklistingMeta(doc): void {
+function generateTracklistingMeta(doc: any): void {
   generateText(doc, "ARTIST:", 10, 15, "bold", 16);
-  generateText(doc, artist.toUpperCase(), 50, 15, "bold", 16);
+  generateText(doc, get(formStore).artist.toUpperCase(), 50, 15, "bold", 16);
 
   generateText(doc, "TITLE:", 10, 22, "bold", 16);
-  generateText(doc, title.toUpperCase(), 50, 22, "bold", 16);
+  generateText(doc, get(formStore).title.toUpperCase(), 50, 22, "bold", 16);
   doc.setDrawColor(128, 128, 128);
   doc.line(10, 25, doc.internal.pageSize.width - 10, 25);
 
   generateText(doc, "REF:", 10, 40, "bold");
-  generateText(doc, catNr.toUpperCase(), 50, 40, "regular");
+  generateText(doc, get(formStore).catNr.toUpperCase(), 50, 40, "regular");
   generateText(doc, "FORMAT:", 10, 45, "bold");
-  generateText(doc, format, 50, 45, "regular");
+  generateText(doc, get(formStore).format, 50, 45, "regular");
   generateText(doc, "SPEED", 10, 50, "bold");
-  generateText(doc, speed, 50, 50, "regular");
+  generateText(doc, get(formStore).speed, 50, 50, "regular");
   generateText(doc, "SAMPLE RATE:", 10, 55, "bold");
-  generateText(doc, sampleRate, 50, 55, "regular");
+  generateText(doc, get(formStore).sampleRate, 50, 55, "regular");
   generateText(doc, "BIT DEPTH:", 10, 60, "bold");
-  generateText(doc, bitDepth, 50, 60, "regular");
+  generateText(doc, get(formStore).bitDepth, 50, 60, "regular");
 }
 
 function generateText(
@@ -216,7 +212,7 @@ function addLogo(doc: any): void {
 }
 
 function generateComments(doc: any): void {
-  if (comments === "") return;
+  if (get(formStore).comments === "") return;
   const height = doc.autoTable.previous.finalY + 20;
   generateText(
     doc,
@@ -225,15 +221,18 @@ function generateComments(doc: any): void {
     doc.autoTable.previous.finalY + 20,
     "bold"
   );
-  generateText(doc, comments, 10, height + 10, "regular");
+  generateText(doc, get(formStore).comments, 10, height + 10, "regular");
 }
 
 // HELPERS
 
 function generateTableMeta(sides: string[]): string {
-  const formattedSides = sides.map((side) => {
-    const minute = ledger[`${side}Time`][0];
-    let second = ledger[`${side}Time`][1];
+  const formattedSides = sides.map((side: string) => {
+    const correctSide = get(vinylStore).sides.find(
+      (s) => s.prefix === side
+    ) as SideType;
+    const [minute, unformattedSecond] = secondsToMinute(correctSide.length);
+    let second: string | number = unformattedSecond;
     second = second < 10 ? "0" + second : second;
     return `${side} : ${minute} : ${second}`;
   });
@@ -244,62 +243,22 @@ function generateTableMeta(sides: string[]): string {
       let side = item.split(":")[0].trim();
       side = side.replace("side", "SIDE ");
       const time = item.split(":")[1].trim() + ":" + item.split(":")[2].trim();
-      return `${side} : ${time}`;
+      return `SIDE ${side} : ${time}`;
     });
     return formattedArr.join(" • ");
   }
 }
 
-// DATA & DATA VALIDATION
-
-function getTracklistingData(): void {
-  App.sides.forEach((side) => {
-    dataManipulator.resetAndFillData(side, ledger);
-  });
-}
-
-function validatesTracklisting(): void {
-  if (LedgerValidation.isNotValidated(ledger)) {
-    throw new Error("Some data are missing in the tracklisting.");
-  }
-}
-
-function getFormValues(): void {
-  catNr = (document.getElementById("catnumber") as HTMLInputElement).value;
-  artist = (document.getElementById("artist") as HTMLInputElement).value;
-  title = (document.getElementById("title") as HTMLInputElement).value;
-  comments = (document.getElementById("comments") as HTMLInputElement).value;
-  format = getCheckedValue("format") || "";
-  speed = getCheckedValue("speed") || "";
-  sampleRate = getCheckedValue("sample_rate") || "";
-  bitDepth = getCheckedValue("bit_depth") || "";
-}
-
-function getCheckedValue(name: string): string | null {
-  const elements = document.getElementsByName(
-    name
-  ) as NodeListOf<HTMLInputElement>;
-  const checkedElement = Array.from(elements).find(
-    (element) => element.checked
-  );
-  return checkedElement ? checkedElement.value : null;
-}
-
 function validatesFormValues(): void {
-  const fields = {
-    catNr,
-    artist,
-    title,
-    format,
-    speed,
-    sampleRate,
-  };
+  let form = get(formStore);
 
-  for (let field in fields) {
-    if (fields[field] === "") {
-      if (field === "catNr") field = "Catalog Number";
-      if (field === "sampleRate") field = "Sample Rate";
-      throw new Error(`Please fill the ${field} field to generate the PDF.`);
-    }
+  for (let key in form) {
+    let value = form[key];
+    if (value !== undefined && value !== "") continue;
+    if (key === "comments") continue;
+    if (key === "bitDepth") continue;
+    if (key === "catNr") key = "Catalog Number";
+    if (key === "sampleRate") key = "Sample Rate";
+    throw new Error(`Please fill the ${key} field to generate the PDF.`);
   }
 }

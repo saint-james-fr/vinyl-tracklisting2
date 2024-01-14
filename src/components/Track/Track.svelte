@@ -2,7 +2,6 @@
   import { secondsToMinute } from "lib/time";
   import { vinylStore } from "stores";
   import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
 
   export let index: number;
   export let prefix: string;
@@ -22,13 +21,14 @@
   onMount(() => {
     // grab track title from store
     side = $vinylStore.sides[sideIndex];
-    console.log(side);
     track = side.tracks[index];
     title = track.title;
     // @ts-ignore
     minute = secondsToMinute(track.length)[0];
     // @ts-ignore
     second = secondsToMinute(track.length)[1];
+    // update prefix in store
+    $vinylStore.sides[sideIndex].tracks[index].prefix = prefix;
     handler.classList.add("show");
   });
 </script>
@@ -105,6 +105,7 @@
           if (second > 59) second = 59;
           if (second < 0) second = 0;
           // @ts-ignore
+          if (!minute) minute = 0;
           $vinylStore.sides[sideIndex].tracks[index].length =
             minute * 60 + second;
         }}

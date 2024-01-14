@@ -1,5 +1,20 @@
 <script lang="ts">
-  
+  import { formStore } from "stores";
+
+  let catNr: string;
+  let artist: string;
+  let title: string;
+  let format: string;
+  let speed: string;
+
+  $: formStore.update((store) => {
+    store.catNr = catNr;
+    store.artist = artist;
+    store.title = title;
+    store.format = format;
+    store.speed = speed;
+    return store;
+  });
 </script>
 
 <div class="page__container-basics page__container-basics-not-first">
@@ -14,6 +29,7 @@
             <input
               id="catnumber"
               type="text"
+              bind:value={catNr}
               class="input-border"
               data-form-type="other"
             />
@@ -22,6 +38,7 @@
             >Artist*
             <input
               id="artist"
+              bind:value={artist}
               type="text"
               class="input-border"
               data-form-type="other"
@@ -32,6 +49,7 @@
             <input
               id="title"
               type="text"
+              bind:value={title}
               class="input-border"
               data-form-type="other"
             />
@@ -45,6 +63,7 @@
                 <input
                   type="radio"
                   name="format"
+                  bind:group={format}
                   value='LP/12"'
                   data-form-type="other"
                 />LP/12"
@@ -53,6 +72,7 @@
                 ><input
                   type="radio"
                   name="format"
+                  bind:group={format}
                   value='10"'
                   data-form-type="other"
                 />10"</label
@@ -61,6 +81,7 @@
                 ><input
                   type="radio"
                   name="format"
+                  bind:group={format}
                   value='7"'
                   data-form-type="other"
                 />7"</label
@@ -77,6 +98,7 @@
                   type="radio"
                   name="speed"
                   value="33RPM"
+                  bind:group={speed}
                   data-form-type="other"
                 />33RPM</label
               >
@@ -84,6 +106,7 @@
                 ><input
                   type="radio"
                   name="speed"
+                  bind:group={speed}
                   value="45RPM"
                   data-form-type="other"
                 />45RPM</label
@@ -94,7 +117,8 @@
             <a href="#section__audio-infos"
               ><span class="surligne-inverse"
                 >Continue   <i class="fa-solid fa-turn-down"></i></span
-            ></a>
+              ></a
+            >
           </div>
         </div>
       </form>
