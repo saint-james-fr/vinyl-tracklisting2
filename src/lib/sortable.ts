@@ -2,9 +2,6 @@ import Sortable from "sortablejs";
 import { vinylStore } from "stores";
 import { prefixPossible, prefixTranslation } from "./prefix";
 
-// change of ui triggered by on end => modify sort array of vinyl.sides
-//prevent emptyside
-
 const getSideIndex = (sideElement: HTMLElement): number | undefined => {
   const id = sideElement.id;
   const pattern = /side(.)/;

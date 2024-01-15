@@ -5,7 +5,7 @@ import { truncateString } from "./util";
 import { formStore, vinylStore } from "stores";
 import { get } from "svelte/store";
 import { tracksAreValid } from "./validate";
-import { secondsToMinute } from "./time";
+import { secondsToMinute, formatTime } from "./time";
 
 let actualPage: number;
 
@@ -67,9 +67,6 @@ function groupSidesInPair(sides: SideType[]): string[][] {
 
 // Fills a rows array with the data from the ledger
 function fillRows(rows: any, pair: string[]): void {
-  const formatTime = (second: number): string | number => {
-    return second < 10 ? "0" + second : second;
-  };
   // We iterate over the pair array to fill the rows array
   pair.forEach((side) => {
     const sideData = get(vinylStore).sides.find(
@@ -99,7 +96,7 @@ function fillRows(rows: any, pair: string[]): void {
       let [minute, second] = secondsToMinute(track.length);
 
       cumulatedTime.push(getCumulatedtime(minute, second).join(":"));
-      console.log(track.prefix)
+      console.log(track.prefix);
       const position = `${track.prefix}${index + 1}`;
       const temp = [
         position,

@@ -4,3 +4,7 @@ export const secondsToMinute = (seconds: number): MinuteSecond => {
   const result: MinuteSecond = [minutes, leftover];
   return result;
 };
+
+export const formatTime = (second: number): string | number => {
+  return second < 10 ? "0" + second : second;
+};

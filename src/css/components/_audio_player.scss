@@ -18,15 +18,6 @@ $color-text: var(--color-cream);
   @include handle-hover-active((color: $color_button_hover ))
 }
 
-.audio_player__hidden {
-  transform: translateY(500%);
-  transition: transform 0.7s ease-in-out;
-}
-
-.audio_player__show {
-  transform: translateY(0);
-}
-
 #audio_player__container {
   position: fixed;
   bottom: 0;

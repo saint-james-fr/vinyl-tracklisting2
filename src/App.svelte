@@ -6,19 +6,23 @@
   import ReleaseForm from "components/ReleaseForm/ReleaseForm.svelte";
   import AudioForm from "components/AudioForm/AudioForm.svelte";
   import Footer from "components/PDFForm/Footer.svelte";
+  import Credits from "components/Credits/Credits.svelte";
+  import AudioPlayer from "components/AudioPlayer/AudioPlayer.svelte";
   import AOS from "aos";
+
+  import { playerStore, playlistStore } from "stores";
 
   AOS.init({
     once: true,
     duration: 800,
   });
 
-  console.log("********************");
-  console.log("Design & Code by Maxence Robinet");
-  console.log("www.maxencerobinet.fr");
-  console.log("********************");
+  $: {
+    console.log($playlistStore);
+  }
 </script>
 
+<AudioPlayer />
 <Header />
 <Hero />
 <Timing />
@@ -26,3 +30,4 @@
 <ReleaseForm />
 <AudioForm />
 <Footer />
+<Credits />

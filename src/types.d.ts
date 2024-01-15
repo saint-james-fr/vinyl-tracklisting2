@@ -30,3 +30,26 @@ interface FormType {
 }
 
 type MinuteSecond = [number, number];
+
+interface PlayerStore {
+  playing: boolean;
+  currentAudio: HTMLAudioElement | null;
+  currentTrack: TrackType | null;
+  blocking: boolean;
+  mute: () => void;
+  playPause: () => void;
+  stop: () => void;
+  previous: () => void;
+  next: () => void;
+  seek: (time: number) => void;
+}
+
+interface PlaylistElement {
+  audio: HTMLAudioElement;
+  track: TrackType;
+}
+
+type PlaylistStore = {
+  tracks: PlaylistElement[];
+  synchronize: () => void;
+};
