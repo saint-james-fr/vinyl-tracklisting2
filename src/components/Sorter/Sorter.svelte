@@ -79,18 +79,22 @@
         </div>
         <div class="centrer disclaimer">
           <p>
-            Add sides if need, import audio or fill your tracklist.<br />
-            Then rearrange, you can also use sort button. <br />
-            <br />
-            Please note built-in audio player is only available in Chrome.
-            <br />
-            You can synchronize it with your sorted playlist.
-            <br />
+            First, add or remove sides - from one side only, up to 6 sides
+            (3xLP)<br />
+            Then import your audios to grab title and duration - it also unlocks
+            an audio player synchronized with your tracklisting<br />
+            Then rearrange your tracks by dragging them.<br />
+            You can also use the sort button if you try to minimize length difference
+            between sides.<br />
           </p>
         </div>
       </div>
       <!-- APP CONTAINER -->
-      <div class="app__container" class:app_one_side={$vinylStore.sides.length == 1} id="app">
+      <div
+        class="app__container"
+        class:app_one_side={$vinylStore.sides.length == 1}
+        id="app"
+      >
         {#each $vinylStore.sides as side, index}
           <Side {side} {index} />
         {/each}
