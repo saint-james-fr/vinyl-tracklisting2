@@ -1,4 +1,5 @@
 button {
+  user-select: none;
   display: block;
   outline: none;
   cursor: pointer;
@@ -137,7 +138,7 @@ i.icon-btn {
 }
 
 .home-main-button {
-  padding: 0.3125rem 0.625rem 0.625rem 0.625rem;
+  padding: 0.3125rem 0.625rem 0.0125rem 0.625rem;
   background-color: var(--color-orange);
   color: var(--color-cream);
   -webkit-transition: 0.13s ease-in-out;
@@ -147,6 +148,7 @@ i.icon-btn {
   -webkit-border-radius: 0.1875rem;
   border-radius: 0.1875rem;
   cursor: pointer;
+  text-align:center;
 
   @include handle-hover-active((color: var(--color-orange),
       background-color: var(--color-cream),
@@ -154,13 +156,21 @@ i.icon-btn {
 }
 
 .home-secondary-button {
-  padding: 0.3125rem 0.625rem 0.625rem 0.625rem;
+  user-select: none;
   -webkit-transition: 0.13s ease-in-out;
   -o-transition: 0.13s ease-in-out;
   -moz-transition: 0.13s ease-in-out;
   transition: 0.13s ease-in-out;
   cursor: pointer;
+  padding: 0.4375rem 0.625rem 0.3rem 0.625rem;
+  border-radius: 5px;
   @include handle-hover-active((color: var(--color-orange)));
+  text-align:center;
+}
+
+#modal_button {
+  border: 1px solid var(--color-orange);
+
 }
 
 #continue-button {
@@ -198,6 +208,8 @@ input[type="file"] {
 }
 
 .app__buttons {
+  user-select: none;
+
   flex-wrap: wrap;
   padding-block: 0.2em;
   align-items: center;

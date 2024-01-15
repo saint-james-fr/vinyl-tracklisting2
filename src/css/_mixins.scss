@@ -8,7 +8,7 @@
   @font-face {
     font-family: "#{$name}";
     src: url("/#{$name}/#{$file}.woff2") format("woff2"),
-    url("/#{$name}/#{$file}.woff") format("woff");
+      url("/#{$name}/#{$file}.woff") format("woff");
     font-weight: $weight;
     font-style: $style;
     font-display: swap;
@@ -44,5 +44,17 @@ $breakpoint: 767px;
         #{$property}: $value;
       }
     }
+  }
+}
+
+@mixin until($breakpoint) {
+  @media screen and (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin from($breakpoint) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
   }
 }

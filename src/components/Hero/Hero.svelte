@@ -36,7 +36,7 @@
               >the best distribution</span
             ><br />for your vinyl</span
           >
-          <div class="block-paragraph">
+          <div>
             <p>
               This website helps you to generate your very own tracklisting for
               professional use with all informations needed.
@@ -54,98 +54,75 @@
         <div class="canvas-container">
           <canvas bind:this={c}> </canvas>
         </div>
-        <div class="home_infoblock grid5">
-          <div
-            on:click={() => modalInstance.handleButtonClick(modalElement)}
-            class="clickable-div home-secondary-button"
+      </div>
+      <div class="button_block grid5">
+        <div
+          on:click={() => modalInstance.handleButtonClick(modalElement)}
+          class="clickable-div home-secondary-button"
+          id="modal_button"
+        >
+          <span class="bigger-text"
+            ><i class="fa-solid fa-record-vinyl"></i> About pressing vinyl</span
           >
-            <span class="bigger-text"
-              ><i class="fa-solid fa-record-vinyl"></i> About pressing vinyl</span
-            >
-          </div>
-          <div class="home-main-button">
-            <a href="#section__tracklisting"
-              ><span class="bigger-text"
-                ><i class="fa-solid fa-list"></i> Create your tracklist.</span
-              ></a
-            >
-          </div>
         </div>
-        <div class="modal-technical-infos">
-          <!-- The Modal -->
-          <div bind:this={modalElement} class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-              <div class="modal-header">
-                <span
-                  on:click={() => modalInstance.handleCloseClick(modalElement)}
-                  class="home__button">&times;</span
-                >
-                <h2>Technical Informations</h2>
-              </div>
-              <div class="modal-body">
-                <div class="block-paragraph">
-                  <ul>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> The first thing to
-                      know is that the more music there is on one side, the less
-                      dynamic and therefore, we approach the surface noise.
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> On a 12inch,
-                      ideally, it should not exceed 20 minutes at 33 RPM 1/3 and
-                      12 minutes at 45 RPM.
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> Ideally, you
-                      should place the energetic tracks on the beginning of the
-                      side.
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> The more stereo
-                      there is, the more space the groove will take.
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> You can burn mono
-                      music louder than stereo music.
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> Quieter tracks
-                      take up less space than heavy tracks.
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> High frequencies
-                      are more difficult to engrave.
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> Too much high
-                      frequencies cause saturation during playback.
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> Do not push the
-                      stereo to low frequencies.
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> Apply a strong
-                      deesser to the vocals.
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> Do not compress
-                      the track too much - it is better for the cut (Ex: DR 14
-                      db).
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-arrow-right"></i> Think from the
-                      start of production to work in high resolution (minimum 24
-                      bits/ 48 kHz).
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="home-main-button">
+          <a href="#section__tracklisting"
+            ><span class="bigger-text"
+              ><i class="fa-solid fa-list"></i> Create your tracklist.</span
+            ></a
+          >
         </div>
       </div>
     </div>
   </section>
+</div>
+
+<div class="modal-technical-infos">
+  <!-- The Modal -->
+  <div bind:this={modalElement} class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span
+          on:click={() => modalInstance.handleCloseClick(modalElement)}
+          class="home__button">&times;</span
+        >
+        <h2>Technical Informations</h2>
+      </div>
+      <div class="modal-body">
+        <p>
+          The first thing to know is that the more music there is on one side,
+          the less dynamic and therefore, we approach the surface noise. On a
+          12inch, ideally, it should not exceed 20 minutes at 33 RPM 1/3 and 12
+          minutes at 45 RPM.
+        </p>
+
+        <p>
+          Ideally, you should place the energetic tracks on the beginning of the
+          side. The more stereo there is, the more space the groove will take.
+          You can burn mono music louder than stereo music.
+        </p>
+
+        <p>
+          Quieter tracks take up less space than heavy tracks. High frequencies
+          are more difficult to engrave. Too much high frequencies cause
+          saturation during playback.
+        </p>
+
+        <p>Do not push the stereo to low frequencies.</p>
+
+        <p>Apply a strong deesser to the vocals.</p>
+
+        <p>
+          Do not compress the track too much - it is better for the cut (Ex: DR
+          14 db).
+        </p>
+
+        <p>
+          Think from the start of production to work in high resolution (minimum
+          24 bits/ 48 kHz).
+        </p>
+      </div>
+    </div>
+  </div>
 </div>

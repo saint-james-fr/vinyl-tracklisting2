@@ -63,6 +63,15 @@
   margin-bottom: 0.9375rem;
 }
 
+.button_block {
+  margin: 0 auto;
+  width: 82%;
+  padding: 1.5em 0;
+  @include from(1281px) {
+    width: 70%;
+  }
+}
+
 .block-title {
   display: inline-block;
   text-transform: uppercase;
@@ -128,14 +137,6 @@
 }
 
 .grid5 {
-  -ms-grid-column: 1;
-  grid-column-start: 1;
-  -ms-grid-column-span: 3;
-  grid-column-end: 4;
-  -ms-grid-row: 3;
-  grid-row-start: 3;
-  -ms-grid-row-span: 1;
-  grid-row-end: 4;
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -149,6 +150,12 @@
   justify-content: space-between;
   padding-bottom: 2.5em;
   padding-top: 3.2em;
+  @include until($breakpoint) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 2rem;
+  }
 }
 
 @media screen and (max-width: 890px) {
