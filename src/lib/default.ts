@@ -132,10 +132,9 @@ export const defaultPlayer = {
   },
 };
 
-export const defaultPlaylist = {
+export const defaultPlaylist: PlaylistStore = {
   tracks: [],
   synchronize: function () {
-    console.log("synchronize");
     const allTracks = get(vinylStore).sides.reduce(
       (acc: TrackType[], side: SideType) => {
         return acc.concat(side.tracks);

@@ -10,16 +10,10 @@
   import AudioPlayer from "components/AudioPlayer/AudioPlayer.svelte";
   import AOS from "aos";
 
-  import { playerStore, playlistStore } from "stores";
-
   AOS.init({
     once: true,
     duration: 800,
   });
-
-  $: {
-    console.log($playlistStore);
-  }
 </script>
 
 <AudioPlayer />

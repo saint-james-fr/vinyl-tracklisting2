@@ -96,7 +96,6 @@ function fillRows(rows: any, pair: string[]): void {
       let [minute, second] = secondsToMinute(track.length);
 
       cumulatedTime.push(getCumulatedtime(minute, second).join(":"));
-      console.log(track.prefix);
       const position = `${track.prefix}${index + 1}`;
       const temp = [
         position,

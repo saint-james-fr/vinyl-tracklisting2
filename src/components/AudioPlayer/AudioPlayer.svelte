@@ -7,15 +7,19 @@
   let title = "";
   let endTime = "";
   let actualTime = "";
+  let progressBar: HTMLInputElement;
+  let prefix = "";
+  let index = "";
 
   $: {
     if ($playerStore.currentAudio) {
       $playerStore.currentAudio.volume = volume / 100;
       requestAnimationFrame(() => {
-        if (!$playerStore.currentAudio) return;
+        if (!$playerStore.currentAudio || !progressBar) return;
         progress =
           ($playerStore.currentAudio.currentTime * 100) /
           $playerStore.currentAudio.duration;
+        progressBar.value = String(progress);
       });
     }
     if (
@@ -27,14 +31,18 @@
       endTime = `${formatTime(
         secondsToMinute($playerStore.currentTrack.length)[0]
       )}:${formatTime(secondsToMinute($playerStore.currentTrack.length)[1])}`;
-      let progressInSeconds = Math.trunc(
-        ($playerStore.currentTrack.length * progress) / 100
-      );
-      let pMinutes = secondsToMinute(progressInSeconds)[0];
-      let pSeconds = secondsToMinute(progressInSeconds)[1];
-      actualTime = `${formatTime(pMinutes)}:${formatTime(pSeconds)}`;
+      if (progressBar) {
+        let progressInSeconds = Math.trunc(
+          ($playerStore.currentTrack.length * progress) / 100
+        );
+        let pMinutes = secondsToMinute(progressInSeconds)[0];
+        let pSeconds = secondsToMinute(progressInSeconds)[1];
+        actualTime = `${formatTime(pMinutes)}:${formatTime(pSeconds)}`;
+      }
     }
   }
+  // TODO : css linear gradient
+  // TODO : truncate title
 
   const handlePrevious = () => {
     $playerStore.stop();
@@ -62,10 +70,16 @@
     $playerStore.seek(e.target.value);
   };
 </script>
+
 ne
 <div id="audio_player__container" class="audio_player__hidden">
   <div id="audio_player__title__container">
-    <div id="audio_player__title">{title}</div>
+    <div id="audio_player__title">
+      {#if $playerStore.currentTrack && $playerStore.currentTrack.prefix}
+        {prefix}{index} -
+      {/if}
+      {title}
+    </div>
   </div>
   <div id="audio_player__controls">
     <div id="audio_player__progress_container">
@@ -77,8 +91,9 @@ ne
         min="0"
         max="100"
         step="0.01"
+        value="0"
         on:input={handleSeek}
-        bind:value={progress}
+        bind:this={progressBar}
       />
     </div>
     <div id="audio_player__controls_container">

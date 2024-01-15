@@ -29,6 +29,7 @@
     second = secondsToMinute(track.length)[1];
     // update prefix in store
     $vinylStore.sides[sideIndex].tracks[index].prefix = prefix;
+
     handler.classList.add("show");
   });
 </script>
