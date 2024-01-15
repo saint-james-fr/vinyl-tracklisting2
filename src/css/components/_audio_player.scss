@@ -29,6 +29,12 @@ $color-text: var(--color-cream);
   justify-content: space-between;
   align-items: center;
   z-index: map-get($z-index , audio-player);
+  transition: all 0.2s ease-in-out;
+  transform: translateY(100%);
+}
+
+#audio_player__container.show_player {
+  transform: translateY(0%);
 }
 
 
@@ -51,27 +57,6 @@ $color-text: var(--color-cream);
   color: $color_text;
 }
 
-#syncButton {
-  position: absolute;
-  left: 0;
-  bottom: 9px;
-  font-size: $size-title;
-  cursor: pointer;
-  @include button-hover;
-}
-
-#syncButton::after {
-  content: "synchronize";
-  font-family: var(--font-family-1);
-  text-transform: uppercase;
-  font-size: $size-small;
-  font-weight: 500;
-  margin-inline: 10px;
-  position: relative;
-  top: -2px;
-  @include button-hover;
-
-}
 
 #audio_player__controls {
   position: relative;
@@ -131,6 +116,7 @@ $color-text: var(--color-cream);
   background: transparent;
   position: relative;
   top: -6px;
+  height:3px;
   padding: 0px;
   border-radius: 15px;
   background:
@@ -146,6 +132,7 @@ $color-text: var(--color-cream);
     background: $color_track;
     height: $height_track;
     border-radius: 15px;
+    
     transition: background 0.05s ease-in-out;
     @include handle-hover-active((background: $color_track_hover))
   }
@@ -156,6 +143,7 @@ $color-text: var(--color-cream);
     height: $height_track;
     border-radius: 15px;
     transition: background 0.05s ease-in-out;
+    
     @include handle-hover-active((background: $color_track_hover))
   }
 
@@ -170,13 +158,15 @@ $color-text: var(--color-cream);
     height: $height_thumb;
     width: $width_thumb;
     border-radius: 10px;
+    
   }
 
   /******** Firefox ********/
   &::-moz-range-thumb {
     border: none;
     /*Removes extra border that FF applies*/
-    border-radius: 0;
+    width:3px;
+    border-radius: 15px;
     /*Removes default border-radius that FF applies*/
     background-color: $color_text;
     height: $height_thumb;
@@ -251,6 +241,7 @@ $color-text: var(--color-cream);
   -webkit-appearance: none;
   background: transparent;
   position: relative;
+  height: 3px;
   top: -6px;
   padding: 0px;
   border-radius: 15px;
@@ -299,11 +290,12 @@ $color-text: var(--color-cream);
   &::-moz-range-thumb {
     border: none;
     /*Removes extra border that FF applies*/
-    border-radius: 0;
     /*Removes default border-radius that FF applies*/
     background-color: $color_text;
     height: $height_thumb;
     width: $width_thumb;
+    width:3px;
+    border-radius: 15px;
   }
 
   // Focus

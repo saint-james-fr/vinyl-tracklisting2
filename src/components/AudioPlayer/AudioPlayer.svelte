@@ -1,6 +1,7 @@
 <script lang="ts">
   import { playerStore, playlistStore } from "stores";
   import { secondsToMinute, formatTime } from "lib/time";
+  import { truncateString, updateLinearGradient } from "lib/util";
 
   let progress = 0;
   let volume = 100;
@@ -8,10 +9,18 @@
   let endTime = "";
   let actualTime = "";
   let progressBar: HTMLInputElement;
+  let volumeSlider: HTMLInputElement;
   let prefix = "";
   let index = "";
+  let viewportWidth: number;
+  let maxTitleLength: number;
+
+  // TODO: mute icon // play icon
 
   $: {
+    // for truncating title
+    maxTitleLength = viewportWidth < 550 ? 37 : 66;
+    // for the progress bar
     if ($playerStore.currentAudio) {
       $playerStore.currentAudio.volume = volume / 100;
       requestAnimationFrame(() => {
@@ -20,8 +29,10 @@
           ($playerStore.currentAudio.currentTime * 100) /
           $playerStore.currentAudio.duration;
         progressBar.value = String(progress);
+        updateLinearGradient(progressBar, "#d17f33", "#623c19cf");
       });
     }
+    // for the actual time, title and end time
     if (
       $playerStore.currentTrack &&
       $playerStore.currentTrack.title &&
@@ -41,14 +52,12 @@
       }
     }
   }
-  // TODO : css linear gradient
-  // TODO : truncate title
-
   const handlePrevious = () => {
     $playerStore.stop();
     $playlistStore.synchronize();
     $playerStore.previous();
     $playerStore.playPause();
+    updateLinearGradient(progressBar, "#d17f33", "#623c19cf");
   };
 
   const handlePlayPause = () => {
@@ -60,25 +69,54 @@
     $playlistStore.synchronize();
     $playerStore.next();
     $playerStore.playPause();
+    updateLinearGradient(progressBar, "#d17f33", "#623c19cf");
   };
 
   const handleMute = () => {
+    if (!$playerStore.currentAudio) return;
     $playerStore.mute();
+
+    const actualVolume: number = $playerStore.currentAudio.muted
+      ? 0
+      : $playerStore.currentAudio.volume * 100;
+    volumeSlider.value = actualVolume.toString();
+    updateLinearGradient(volumeSlider, "#f3eee0", "#623c19cf");
+  };
+
+  const handleVolumeChange = () => {
+    if (!$playerStore.currentAudio) return;
+    // si je clique et que je suis muté ça doit me démuter
+    if ($playerStore.currentAudio.muted) $playerStore.mute();
+
+    $playerStore.currentAudio.volume = volume / 100;
+    updateLinearGradient(volumeSlider, "#f3eee0", "#623c19cf");
   };
 
   const handleSeek = (e: any) => {
     $playerStore.seek(e.target.value);
+    updateLinearGradient(progressBar, "#d17f33", "#623c19cf");
+  };
+
+  const handleClose = () => {
+    $playerStore.stop();
+    $playerStore.reset();
+    updateLinearGradient(progressBar, "#d17f33", "#623c19cf");
   };
 </script>
 
-ne
-<div id="audio_player__container" class="audio_player__hidden">
+<svelte:window bind:innerWidth={viewportWidth} />
+
+<div
+  id="audio_player__container"
+  class="audio_player__hidden"
+  class:show_player={$playerStore.show}
+>
   <div id="audio_player__title__container">
     <div id="audio_player__title">
       {#if $playerStore.currentTrack && $playerStore.currentTrack.prefix}
         {prefix}{index} -
       {/if}
-      {title}
+      {truncateString(title, maxTitleLength)}
     </div>
   </div>
   <div id="audio_player__controls">
@@ -98,8 +136,7 @@ ne
     </div>
     <div id="audio_player__controls_container">
       <div id="audio_player__main_controls">
-        <div id="audio_player__close">close</div>
-        <i id="syncButton" class="fas fa-solid fa-rotate"></i>
+        <div id="audio_player__close" on:click={handleClose}>close</div>
         <div id="audio_player__playpreviousnext">
           <i
             id="audio_player__prev"
@@ -108,7 +145,9 @@ ne
           ></i>
           <i
             id="audio_player__play"
-            class="fas fa-play"
+            class="fas"
+            class:fa-play={!$playerStore.playing}
+            class:fa-pause={$playerStore.playing}
             on:click={handlePlayPause}
           ></i>
           <i
@@ -129,6 +168,8 @@ ne
             min="0"
             max="100"
             bind:value={volume}
+            on:input={handleVolumeChange}
+            bind:this={volumeSlider}
           />
         </div>
       </div>

@@ -35,13 +35,14 @@ interface PlayerStore {
   playing: boolean;
   currentAudio: HTMLAudioElement | null;
   currentTrack: TrackType | null;
-  blocking: boolean;
+  show: boolean;
   mute: () => void;
   playPause: () => void;
   stop: () => void;
   previous: () => void;
   next: () => void;
   seek: (time: number) => void;
+  reset: () => void;
 }
 
 interface PlaylistElement {

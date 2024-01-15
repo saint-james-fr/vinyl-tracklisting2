@@ -85,7 +85,6 @@
           let duration = Math.trunc(audio.duration);
           const title = file.name.replace(/\.[^/.]+$/, "");
           let totalSides = $vinylStore.sides.length;
-
           const track: TrackType = {
             title,
             length: duration,
@@ -130,6 +129,13 @@
     Promise.all(promises).then(() => {
       // We syncronize the playlist
       $playlistStore.synchronize();
+      // We show the player
+      playerStore.update((store) => {
+        store.show = true;
+        return store;
+      });
+      // We play
+      $playerStore.playPause();
     });
   };
 </script>

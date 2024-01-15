@@ -57,7 +57,7 @@ export const defaultPlayer = {
   playing: false,
   currentAudio: null as HTMLAudioElement | null,
   currentTrack: null as TrackType | null,
-  blocking: false,
+  show: false,
   mute: function () {
     if (!this.currentAudio) return;
     this.currentAudio.muted = !this.currentAudio.muted;
@@ -129,6 +129,18 @@ export const defaultPlayer = {
   seek: function (time: number) {
     if (!this.currentAudio) return;
     this.currentAudio.currentTime = (time * this.currentAudio.duration) / 100;
+  },
+  reset: function () {
+    playerStore.update((player) => {
+      player.currentAudio = null;
+      player.currentTrack = null;
+      player.show = false;
+      return player;
+    });
+    playlistStore.update((playlist) => {
+      playlist.tracks = [];
+      return playlist;
+    });
   },
 };
 

@@ -10,3 +10,11 @@ export function truncateString(str: string, maxLength: number): string {
   }
   return str;
 }
+
+export function updateLinearGradient(
+  el: HTMLInputElement,
+  firstColor: string,
+  secondColor: string
+): void {
+  el.style.background = `linear-gradient(to right, ${firstColor}, ${firstColor} ${el.value}%, ${secondColor} ${el.value}%)`;
+}
