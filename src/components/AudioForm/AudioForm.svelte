@@ -21,7 +21,7 @@
         <div class="form__container">
           <div class="radio__container">
             <div class="form__label form_label-checkbox form-min-width">
-              Sample Rate*
+              Sample Rate
             </div>
             <div class="radio__container__sub">
               <label class="form__label"

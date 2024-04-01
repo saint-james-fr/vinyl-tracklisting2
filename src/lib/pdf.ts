@@ -189,9 +189,21 @@ function generateTracklistingMeta(doc: jsPDF): void {
   generateText(doc, "SPEED", 10, 50, "bold");
   generateText(doc, get(formStore).speed, 50, 50, "normal");
   generateText(doc, "SAMPLE RATE:", 10, 55, "bold");
-  generateText(doc, get(formStore).sampleRate, 50, 55, "normal");
+  generateText(
+    doc,
+    get(formStore).sampleRate || "not specified",
+    50,
+    55,
+    "normal"
+  );
   generateText(doc, "BIT DEPTH:", 10, 60, "bold");
-  generateText(doc, get(formStore).bitDepth, 50, 60, "normal");
+  generateText(
+    doc,
+    get(formStore).bitDepth || "not specified",
+    50,
+    60,
+    "normal"
+  );
 }
 
 function generateText(
@@ -264,8 +276,8 @@ function validatesFormValues(): void {
     if (value !== undefined && value !== "") continue;
     if (key === "comments") continue;
     if (key === "bitDepth") continue;
+    if (key === "sampleRate") continue;
     if (key === "catNr") key = "Catalog Number";
-    if (key === "sampleRate") key = "Sample Rate";
     throw new Error(`Please fill the ${key} field to generate the PDF.`);
   }
 }
