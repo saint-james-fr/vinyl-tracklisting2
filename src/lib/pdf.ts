@@ -7,7 +7,7 @@ import { get } from "svelte/store";
 import { tracksAreValid } from "./validate";
 import { secondsToMinute, formatTime } from "./time";
 import { jsPDF } from "jspdf";
-import "jspdf-autotable";
+import autoTable from "jspdf-autotable";
 
 let actualPage: number;
 
@@ -110,14 +110,17 @@ function fillRows(rows: any, pair: string[]): void {
 
 function generateTable(doc: jsPDF, col: any, rows: any): void {
   const startY = 90;
-  doc.autoTable(col, rows, {
+  doc.autoTable({
+    columns: col,
+    body: rows,
     startY,
     columnStyles: {
       0: {
         fontStyle: "bold",
+        cellWidth: 25,
       },
       1: {
-        cellWidth: 150,
+        cellWidth: 125,
       },
       2: {
         cellWidth: 25,
@@ -127,6 +130,24 @@ function generateTable(doc: jsPDF, col: any, rows: any): void {
       },
     },
   });
+
+  // doc.autoTable(col, rows, {
+  //   startY,
+  //   columnStyles: {
+  //     0: {
+  //       fontStyle: "bold",
+  //     },
+  //     1: {
+  //       cellWidth: 150,
+  //     },
+  //     2: {
+  //       cellWidth: 25,
+  //     },
+  //     3: {
+  //       cellWidth: 25,
+  //     },
+  //   },
+  // });
 }
 
 function generatePage(doc: jsPDF, index: number, callback: () => void) {
@@ -192,7 +213,7 @@ function generateText(
   fontSize = 12
 ) {
   doc.setFontSize(fontSize);
-  doc.setFont(fontStyle).setFont("Helvetica");
+  doc.setFont("Helvetica");
   doc.text(text, x, y);
 }
 
@@ -208,6 +229,7 @@ function addLogo(doc: jsPDF): void {
 
 function generateComments(doc: jsPDF): void {
   if (get(formStore).comments === "") return;
+
   const height = doc.autoTable.previous.finalY + 20;
   generateText(
     doc,
