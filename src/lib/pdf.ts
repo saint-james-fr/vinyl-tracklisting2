@@ -6,11 +6,10 @@ import { formStore, vinylStore } from "stores";
 import { get } from "svelte/store";
 import { tracksAreValid } from "./validate";
 import { secondsToMinute, formatTime } from "./time";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 let actualPage: number;
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-declare const jsPDF: any;
 
 /**
  * Generates a PDF document based on the form and tracklisting data.
