@@ -8,32 +8,15 @@ import { tracksAreValid } from "./validate";
 import { secondsToMinute, formatTime } from "./time";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import type { autoTable } from "jspdf-autotable";
 
 let actualPage: number;
 
+// Extend jsPDF with autoTable plugin
 declare module "jspdf" {
   interface jsPDF {
-    autoTable: {
-      previous: {
-        finalY: number;
-      };
-    } & ((options: AutoTableOptions) => jsPDF);
+    autoTable: autoTable & { previous: { finalY: number } };
   }
-}
-
-interface AutoTableOptions {
-  columns: any;
-  body: any;
-  startX: number;
-  startY: number;
-  columnStyles?: any;
-}
-
-interface AutoTableOptions {
-  columns: any;
-  body: any;
-  startY: number;
-  columnStyles?: any;
 }
 
 /**
@@ -138,7 +121,6 @@ function generateTable(doc: jsPDF, col: any, rows: any): void {
   doc.autoTable({
     columns: col,
     body: rows,
-    startX: -10,
     startY,
     columnStyles: {
       0: {
@@ -156,24 +138,6 @@ function generateTable(doc: jsPDF, col: any, rows: any): void {
       },
     },
   });
-
-  // doc.autoTable(col, rows, {
-  //   startY,
-  //   columnStyles: {
-  //     0: {
-  //       fontStyle: "bold",
-  //     },
-  //     1: {
-  //       cellWidth: 150,
-  //     },
-  //     2: {
-  //       cellWidth: 25,
-  //     },
-  //     3: {
-  //       cellWidth: 25,
-  //     },
-  //   },
-  // });
 }
 
 function generatePage(doc: jsPDF, index: number, callback: () => void) {
@@ -194,7 +158,7 @@ function generatePage(doc: jsPDF, index: number, callback: () => void) {
   callback();
 
   const footerText = `Page ${actualPage} of ${pageCount}`;
-  generateText(doc, footerText, 10, 290, "regular", 10);
+  generateText(doc, footerText, 10, 290, "normal", 10);
 }
 
 function generatePageMeta(doc: jsPDF): void {
@@ -206,7 +170,7 @@ function generatePageMeta(doc: jsPDF): void {
 function generateCredit(doc: jsPDF): void {
   const credit = "This document has been generated on vinyl-tracklisting.com";
 
-  generateText(doc, credit, 60, 290, "regular", 10);
+  generateText(doc, credit, 60, 290, "normal", 10);
 }
 
 function generateTracklistingMeta(doc: jsPDF): void {
@@ -219,15 +183,15 @@ function generateTracklistingMeta(doc: jsPDF): void {
   doc.line(10, 25, doc.internal.pageSize.width - 10, 25);
 
   generateText(doc, "REF:", 10, 40, "bold");
-  generateText(doc, get(formStore).catNr.toUpperCase(), 50, 40, "regular");
+  generateText(doc, get(formStore).catNr.toUpperCase(), 50, 40, "normal");
   generateText(doc, "FORMAT:", 10, 45, "bold");
-  generateText(doc, get(formStore).format, 50, 45, "regular");
+  generateText(doc, get(formStore).format, 50, 45, "normal");
   generateText(doc, "SPEED", 10, 50, "bold");
-  generateText(doc, get(formStore).speed, 50, 50, "regular");
+  generateText(doc, get(formStore).speed, 50, 50, "normal");
   generateText(doc, "SAMPLE RATE:", 10, 55, "bold");
-  generateText(doc, get(formStore).sampleRate, 50, 55, "regular");
+  generateText(doc, get(formStore).sampleRate, 50, 55, "normal");
   generateText(doc, "BIT DEPTH:", 10, 60, "bold");
-  generateText(doc, get(formStore).bitDepth, 50, 60, "regular");
+  generateText(doc, get(formStore).bitDepth, 50, 60, "normal");
 }
 
 function generateText(
@@ -239,7 +203,7 @@ function generateText(
   fontSize = 12
 ) {
   doc.setFontSize(fontSize);
-  doc.setFont("Helvetica");
+  doc.setFont("Helvetica", fontStyle);
   doc.text(text, x, y);
 }
 
@@ -264,7 +228,7 @@ function generateComments(doc: jsPDF): void {
     doc.autoTable.previous.finalY + 20,
     "bold"
   );
-  generateText(doc, get(formStore).comments, 10, height + 10, "regular");
+  generateText(doc, get(formStore).comments, 10, height + 10, "normal");
 }
 
 // HELPERS
