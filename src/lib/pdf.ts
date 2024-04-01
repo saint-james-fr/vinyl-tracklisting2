@@ -7,9 +7,34 @@ import { get } from "svelte/store";
 import { tracksAreValid } from "./validate";
 import { secondsToMinute, formatTime } from "./time";
 import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
+import "jspdf-autotable";
 
 let actualPage: number;
+
+declare module "jspdf" {
+  interface jsPDF {
+    autoTable: {
+      previous: {
+        finalY: number;
+      };
+    } & ((options: AutoTableOptions) => jsPDF);
+  }
+}
+
+interface AutoTableOptions {
+  columns: any;
+  body: any;
+  startX: number;
+  startY: number;
+  columnStyles?: any;
+}
+
+interface AutoTableOptions {
+  columns: any;
+  body: any;
+  startY: number;
+  columnStyles?: any;
+}
 
 /**
  * Generates a PDF document based on the form and tracklisting data.
@@ -113,6 +138,7 @@ function generateTable(doc: jsPDF, col: any, rows: any): void {
   doc.autoTable({
     columns: col,
     body: rows,
+    startX: -10,
     startY,
     columnStyles: {
       0: {
@@ -120,7 +146,7 @@ function generateTable(doc: jsPDF, col: any, rows: any): void {
         cellWidth: 25,
       },
       1: {
-        cellWidth: 125,
+        cellWidth: 115,
       },
       2: {
         cellWidth: 25,
