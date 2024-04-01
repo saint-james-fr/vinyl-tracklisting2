@@ -7,10 +7,23 @@ const unblockOverflow = () => {
   document.body.style.overflowY = "auto";
 };
 
-const modal = () => {
+const modal = (
+  display?:
+    | "block"
+    | "flex"
+    | "grid"
+    | "none"
+    | "inline"
+    | "inline-block"
+    | "inline-flex"
+    | "inline-grid"
+    | "table"
+    | "table-row"
+    | "table-cell"
+) => {
   return {
     handleButtonClick: (modal: HTMLDivElement) => {
-      modal.style.display = "block";
+      modal.style.display = display || "block";
       blockOverflow();
     },
 

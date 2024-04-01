@@ -3,11 +3,14 @@
   import { vinylStore, playerStore, playlistStore } from "stores";
   import { defaultPlayer } from "lib/default";
   import swal from "sweetalert";
+  import Spinner from "components/Spinner/Spinner.svelte";
 
   let trackId = 1;
+  let loading = false;
 
   const handleInput = (e: Event) => {
     const target = e.target as HTMLInputElement;
+    loading = true;
     if (!e.target) return;
     const files = target.files;
 
@@ -136,6 +139,7 @@
       });
       // We play
       $playerStore.playPause();
+      loading = false;
     });
   };
 </script>
@@ -152,3 +156,7 @@
   multiple
   on:input={handleInput}
 />
+
+{#if loading}
+  <Spinner />
+{/if}
