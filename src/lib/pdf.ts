@@ -15,7 +15,7 @@ let actualPage: number;
  * Generates a PDF document based on the form and tracklisting data.
  */
 export function generatePDF(): void {
-  const doc: any = new jsPDF();
+  const doc = new jsPDF();
   try {
     get(vinylStore).sides.forEach((side) => {
       tracksAreValid(side.tracks);
@@ -31,7 +31,7 @@ export function generatePDF(): void {
 
 // PDF FUNCTIONS
 
-function writePDF(doc: any) {
+function writePDF(doc: jsPDF) {
   const cols = ["POSITION", "TITLE", "LENGTH", "START"];
   let sidePairs: string[][] = [];
   if (get(vinylStore).sides.length === 1) {
@@ -108,7 +108,7 @@ function fillRows(rows: any, pair: string[]): void {
   });
 }
 
-function generateTable(doc: any, col: any, rows: any): void {
+function generateTable(doc: jsPDF, col: any, rows: any): void {
   const startY = 90;
   doc.autoTable(col, rows, {
     startY,
@@ -129,7 +129,7 @@ function generateTable(doc: any, col: any, rows: any): void {
   });
 }
 
-function generatePage(doc: any, index: number, callback: () => void) {
+function generatePage(doc: jsPDF, index: number, callback: () => void) {
   const calculateNumberOfPages = (sides: SideType[]): number => {
     if (sides.length === 1) return 1;
     const numberOfPages = sides.length / 2;
@@ -150,19 +150,19 @@ function generatePage(doc: any, index: number, callback: () => void) {
   generateText(doc, footerText, 10, 290, "regular", 10);
 }
 
-function generatePageMeta(doc: any): void {
+function generatePageMeta(doc: jsPDF): void {
   generateTracklistingMeta(doc);
   addLogo(doc);
   generateCredit(doc);
 }
 
-function generateCredit(doc: any): void {
+function generateCredit(doc: jsPDF): void {
   const credit = "This document has been generated on vinyl-tracklisting.com";
 
   generateText(doc, credit, 60, 290, "regular", 10);
 }
 
-function generateTracklistingMeta(doc: any): void {
+function generateTracklistingMeta(doc: jsPDF): void {
   generateText(doc, "ARTIST:", 10, 15, "bold", 16);
   generateText(doc, get(formStore).artist.toUpperCase(), 50, 15, "bold", 16);
 
@@ -184,7 +184,7 @@ function generateTracklistingMeta(doc: any): void {
 }
 
 function generateText(
-  doc: any,
+  doc: jsPDF,
   text: string,
   x: number,
   y: number,
@@ -192,11 +192,11 @@ function generateText(
   fontSize = 12
 ) {
   doc.setFontSize(fontSize);
-  doc.setFontType(fontStyle).setFont("Helvetica");
+  doc.setFont(fontStyle).setFont("Helvetica");
   doc.text(text, x, y);
 }
 
-function addLogo(doc: any): void {
+function addLogo(doc: jsPDF): void {
   const pageWidth = doc.internal.pageSize.width;
   const pageHeight = doc.internal.pageSize.height;
   const width = 15;
@@ -206,7 +206,7 @@ function addLogo(doc: any): void {
   doc.addImage(logoUri, x, y, width, height);
 }
 
-function generateComments(doc: any): void {
+function generateComments(doc: jsPDF): void {
   if (get(formStore).comments === "") return;
   const height = doc.autoTable.previous.finalY + 20;
   generateText(
